@@ -73,4 +73,6 @@ const Logic = { GROUP_ORDER, filterCourses, groupCourses, findGroupConflicts, bu
 
 if (typeof module !== 'undefined') {
   module.exports = Logic;
+} else if (typeof window !== 'undefined') {
+  window.Logic = Logic;
 }
