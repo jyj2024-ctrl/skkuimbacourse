@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SKKU IMBA 2026-2 과목비교</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="site-header-inner">
+      <div class="logo"><span class="logo-mark">S</span> SKKU IMBA 과목비교</div>
+      <span class="badge badge-notice">⚠ 같은 그룹 과목은 동시 수강이 불가합니다</span>
+    </div>
+    <h1 class="hero-title">2026년 2학기, <em>어떤 과목</em>을<br />들을지 <strong>비교</strong>해보세요</h1>
+    <p class="hero-subtitle">그룹 A~F · 전공기반/전공심화 · 교수·난이도·학생 의견·강의계획서 요약까지 한눈에</p>
+  </header>
+
+  <div class="toolbar">
+    <input id="search-input" type="text" class="search-input" placeholder="과목명 또는 교수명 검색" />
+    <div class="filter-group" id="track-filter" data-value="all">
+      <button type="button" class="filter-pill is-active" data-value="all">전체</button>
+      <button type="button" class="filter-pill" data-value="전공기반">전공기반</button>
+      <button type="button" class="filter-pill" data-value="전공심화">전공심화</button>
+    </div>
+    <div class="filter-group" id="difficulty-filter" data-value="all">
+      <button type="button" class="filter-pill is-active" data-value="all">난이도 전체</button>
+      <button type="button" class="filter-pill" data-value="상">상</button>
+      <button type="button" class="filter-pill" data-value="중">중</button>
+      <button type="button" class="filter-pill" data-value="하">하</button>
+    </div>
+  </div>
+
+  <main id="course-list"></main>
+
+  <section id="compare-section" class="compare-section hidden"></section>
+
+  <div id="compare-bar" class="compare-bar hidden">
+    <div class="compare-bar-inner">
+      <span class="compare-count">0개 과목 선택됨</span>
+      <div class="compare-chips"></div>
+      <span class="compare-warning"></span>
+      <div class="compare-bar-actions">
+        <button type="button" id="reset-btn" class="btn btn-ghost">초기화</button>
+        <button type="button" id="compare-btn" class="btn btn-primary">비교하기</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal" role="dialog" aria-modal="true">
+      <button type="button" id="modal-close" class="modal-close" aria-label="닫기">×</button>
+      <div id="modal-body"></div>
+    </div>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="logic.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
