@@ -3,6 +3,7 @@
     query: '',
     track: 'all',
     difficulty: 'all',
+    field: 'all',
     selectedIds: new Set(),
   };
 
@@ -10,6 +11,7 @@
   const searchInput = document.getElementById('search-input');
   const trackFilterEl = document.getElementById('track-filter');
   const difficultyFilterEl = document.getElementById('difficulty-filter');
+  const fieldFilterEl = document.getElementById('field-filter');
   const compareBar = document.getElementById('compare-bar');
   const compareCountEl = compareBar.querySelector('.compare-count');
   const compareChipsEl = compareBar.querySelector('.compare-chips');
@@ -25,6 +27,11 @@
 
   const DIFFICULTY_CLASS = { 상: 'diff-high', 중: 'diff-mid', 하: 'diff-low', 신규과목: 'diff-new' };
   const GROUP_LABEL = { A: '그룹 A', B: '그룹 B', C: '그룹 C', D: '그룹 D', E: '그룹 E', F: '그룹 F' };
+  const FIELD_CLASS = {
+    'Marketing/Management': 'field-marketing',
+    'Accounting/Finance': 'field-accounting',
+    'Global/Innovation': 'field-global',
+  };
 
   function courseById(id) {
     return COURSES.find((c) => c.id === id);
@@ -44,6 +51,7 @@
         <div class="course-card-badges">
           <span class="badge badge-track">${course.track}</span>
           <span class="badge ${DIFFICULTY_CLASS[course.difficulty]}">${course.difficulty}</span>
+          ${course.field ? `<span class="badge ${FIELD_CLASS[course.field]}">${course.field}</span>` : ''}
         </div>
         <h3 class="course-card-name">${course.name}</h3>
         <p class="course-card-professor">${course.professor} 교수</p>
@@ -93,6 +101,10 @@
   });
   wirePillFilter(difficultyFilterEl, (value) => {
     state.difficulty = value;
+    renderGroups();
+  });
+  wirePillFilter(fieldFilterEl, (value) => {
+    state.field = value;
     renderGroups();
   });
 
@@ -173,6 +185,7 @@
         <span class="badge group-badge group-${course.group}">그룹 ${course.group}</span>
         <span class="badge badge-track">${course.track}</span>
         <span class="badge ${DIFFICULTY_CLASS[course.difficulty]}">${course.difficulty}</span>
+        ${course.field ? `<span class="badge ${FIELD_CLASS[course.field]}">${course.field}</span>` : ''}
       </div>
       <h2>${course.name}</h2>
       <p class="modal-professor">${course.professor} 교수</p>

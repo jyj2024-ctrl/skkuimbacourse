@@ -43,3 +43,26 @@ test('courses with a syllabus expose all six documented fields (value may be nul
     }
   }
 });
+
+test('전공기반 courses have no field, 전공심화 courses have a valid field', () => {
+  const allowedField = new Set(['Marketing/Management', 'Accounting/Finance', 'Global/Innovation']);
+  for (const c of COURSES) {
+    if (c.track === '전공기반') {
+      assert.equal(c.field, null, `${c.name}: 전공기반 course should have field: null`);
+    } else {
+      assert.ok(allowedField.has(c.field), `${c.name}: unexpected field "${c.field}"`);
+    }
+  }
+});
+
+test('field distribution matches the field reference table (8 Marketing/Management, 9 Accounting/Finance, 7 Global/Innovation)', () => {
+  const counts = {};
+  for (const c of COURSES) {
+    if (c.field) counts[c.field] = (counts[c.field] || 0) + 1;
+  }
+  assert.deepEqual(counts, {
+    'Marketing/Management': 8,
+    'Accounting/Finance': 9,
+    'Global/Innovation': 7,
+  });
+});

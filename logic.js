@@ -1,10 +1,13 @@
 const GROUP_ORDER = ['A', 'B', 'C', 'D', 'E', 'F'];
 
+const FIELD_ORDER = ['Marketing/Management', 'Accounting/Finance', 'Global/Innovation'];
+
 const SYLLABUS_FIELDS = ['method', 'objective', 'evaluation', 'curriculum', 'textbook', 'note'];
 
 const COMPARE_ROWS = [
   { key: 'group', label: '그룹' },
   { key: 'track', label: '구분' },
+  { key: 'field', label: '분야' },
   { key: 'professor', label: '교수' },
   { key: 'difficulty', label: '난이도' },
   { key: 'studentOpinion', label: '학생 의견' },
@@ -17,11 +20,12 @@ const COMPARE_ROWS = [
 ];
 
 function filterCourses(courses, options) {
-  const { query = '', track = 'all', difficulty = 'all' } = options || {};
+  const { query = '', track = 'all', difficulty = 'all', field = 'all' } = options || {};
   const q = query.trim().toLowerCase();
   return courses.filter((course) => {
     if (track !== 'all' && course.track !== track) return false;
     if (difficulty !== 'all' && course.difficulty !== difficulty) return false;
+    if (field !== 'all' && course.field !== field) return false;
     if (q) {
       const haystack = `${course.name} ${course.professor}`.toLowerCase();
       if (!haystack.includes(q)) return false;
@@ -58,6 +62,7 @@ function cellValue(course, key) {
     return course.syllabus[key] || '정보 없음';
   }
   if (key === 'studentOpinion') return course.studentOpinion || '정보 없음';
+  if (key === 'field') return course.field || '-';
   return course[key];
 }
 
@@ -69,7 +74,7 @@ function buildCompareRows(selectedCourses) {
   }));
 }
 
-const Logic = { GROUP_ORDER, filterCourses, groupCourses, findGroupConflicts, buildCompareRows };
+const Logic = { GROUP_ORDER, FIELD_ORDER, filterCourses, groupCourses, findGroupConflicts, buildCompareRows };
 
 if (typeof module !== 'undefined') {
   module.exports = Logic;

@@ -5,16 +5,16 @@ const Logic = require('../logic.js');
 const sample = [
   {
     id: 'a1', group: 'A', track: '전공기반', name: '회계와기업경영', professor: '이종은',
-    difficulty: '하', studentOpinion: '기초',
+    field: null, difficulty: '하', studentOpinion: '기초',
     syllabus: { method: '온라인', objective: '목표', evaluation: '시험', curriculum: '1주차', textbook: '교재', note: null },
   },
   {
     id: 'a2', group: 'A', track: '전공심화', name: '유통관리론', professor: '류성민',
-    difficulty: '중', studentOpinion: '출석중요', syllabus: null,
+    field: 'Marketing/Management', difficulty: '중', studentOpinion: '출석중요', syllabus: null,
   },
   {
     id: 'b1', group: 'B', track: '전공기반', name: '재무의이해', professor: '오종민',
-    difficulty: '중', studentOpinion: '엑셀', syllabus: null,
+    field: null, difficulty: '중', studentOpinion: '엑셀', syllabus: null,
   },
 ];
 
@@ -28,6 +28,12 @@ test('filterCourses matches by name or professor substring, case-insensitive', (
 test('filterCourses applies track and difficulty filters as AND conditions', () => {
   const result = Logic.filterCourses(sample, { track: '전공기반', difficulty: '하' });
   assert.deepEqual(result.map((c) => c.id), ['a1']);
+});
+
+test('filterCourses applies the field filter, excluding courses with no field', () => {
+  const result = Logic.filterCourses(sample, { field: 'Marketing/Management' });
+  assert.deepEqual(result.map((c) => c.id), ['a2']);
+  assert.deepEqual(Logic.filterCourses(sample, { field: 'Accounting/Finance' }), []);
 });
 
 test('groupCourses buckets courses under every known group letter, in GROUP_ORDER', () => {
@@ -65,4 +71,10 @@ test('buildCompareRows includes base fields (group/track/professor/difficulty/st
   assert.deepEqual(rows.find((r) => r.key === 'group').values, ['A']);
   assert.deepEqual(rows.find((r) => r.key === 'difficulty').values, ['하']);
   assert.deepEqual(rows.find((r) => r.key === 'studentOpinion').values, ['기초']);
+});
+
+test('buildCompareRows shows "-" for the field row on a 전공기반 course, and the field value otherwise', () => {
+  const rows = Logic.buildCompareRows([sample[0], sample[1]]);
+  const fieldRow = rows.find((r) => r.key === 'field');
+  assert.deepEqual(fieldRow.values, ['-', 'Marketing/Management']);
 });
