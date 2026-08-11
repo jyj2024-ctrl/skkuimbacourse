@@ -11,14 +11,8 @@
   --radius-md: 14px;
   --radius-pill: 999px;
 
-  --diff-high-bg: #f6c9c2;
-  --diff-high-ink: #7a2015;
-  --diff-mid-bg: #fcebb0;
-  --diff-mid-ink: #7a5400;
-  --diff-low-bg: #dcefc0;
-  --diff-low-ink: #385c1a;
-  --diff-new-bg: #eaeade;
-  --diff-new-ink: #4a4a3a;
+  --warning-bg: #f6c9c2;
+  --warning-ink: #7a2015;
 
   --group-a: #f4d9c6;
   --group-b: #d6e8f5;
@@ -109,10 +103,6 @@ body {
 .group-D { background: var(--group-d); }
 .group-E { background: var(--group-e); }
 .group-F { background: var(--group-f); }
-.diff-high { background: var(--diff-high-bg); color: var(--diff-high-ink); }
-.diff-mid { background: var(--diff-mid-bg); color: var(--diff-mid-ink); }
-.diff-low { background: var(--diff-low-bg); color: var(--diff-low-ink); }
-.diff-new { background: var(--diff-new-bg); color: var(--diff-new-ink); outline: 1px solid var(--accent); }
 .field-marketing { background: var(--field-marketing-bg); color: var(--field-marketing-ink); }
 .field-accounting { background: var(--field-accounting-bg); color: var(--field-accounting-ink); }
 .field-global { background: var(--field-global-bg); color: var(--field-global-ink); }
@@ -153,7 +143,7 @@ body {
   background: rgba(255, 255, 255, 0.12); color: #fff; border: none;
   border-radius: var(--radius-pill); padding: 6px 12px; font-size: 0.78rem; cursor: pointer;
 }
-.compare-warning { color: var(--diff-high-bg); font-size: 0.8rem; }
+.compare-warning { color: var(--warning-bg); font-size: 0.8rem; }
 .compare-bar-actions { display: flex; gap: 8px; }
 .btn {
   border: none; border-radius: var(--radius-pill); padding: 10px 20px;
@@ -166,7 +156,7 @@ body {
 .compare-section { max-width: 1100px; margin: 0 auto; padding: 40px 24px 120px; }
 .compare-heading { font-size: 1.4rem; margin: 0 0 16px; }
 .compare-conflict-banner {
-  background: var(--diff-high-bg); color: var(--diff-high-ink); padding: 12px 18px;
+  background: var(--warning-bg); color: var(--warning-ink); padding: 12px 18px;
   border-radius: var(--radius-md); margin-bottom: 16px; font-size: 0.88rem;
 }
 .compare-table-wrap { overflow-x: auto; border-radius: var(--radius-lg); background: var(--card-bg); box-shadow: var(--shadow-card); }

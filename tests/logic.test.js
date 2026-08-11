@@ -25,9 +25,9 @@ test('filterCourses matches by name or professor substring, case-insensitive', (
   assert.equal(Logic.filterCourses(sample, { query: 'zzz' }).length, 0);
 });
 
-test('filterCourses applies track and difficulty filters as AND conditions', () => {
-  const result = Logic.filterCourses(sample, { track: '전공기반', difficulty: '하' });
-  assert.deepEqual(result.map((c) => c.id), ['a1']);
+test('filterCourses applies the track filter', () => {
+  const result = Logic.filterCourses(sample, { track: '전공심화' });
+  assert.deepEqual(result.map((c) => c.id), ['a2']);
 });
 
 test('filterCourses applies the field filter, excluding courses with no field', () => {
@@ -66,11 +66,11 @@ test('buildCompareRows falls back to "정보 없음" for a present syllabus with
   assert.deepEqual(noteRow.values, ['정보 없음']);
 });
 
-test('buildCompareRows includes base fields (group/track/professor/difficulty/studentOpinion)', () => {
+test('buildCompareRows includes base fields (group/track/professor/studentOpinion)', () => {
   const rows = Logic.buildCompareRows([sample[0]]);
   assert.deepEqual(rows.find((r) => r.key === 'group').values, ['A']);
-  assert.deepEqual(rows.find((r) => r.key === 'difficulty').values, ['하']);
   assert.deepEqual(rows.find((r) => r.key === 'studentOpinion').values, ['기초']);
+  assert.equal(rows.find((r) => r.key === 'difficulty'), undefined);
 });
 
 test('buildCompareRows shows "-" for the field row on a 전공기반 course, and the field value otherwise', () => {

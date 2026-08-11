@@ -9,7 +9,6 @@ const COMPARE_ROWS = [
   { key: 'track', label: '구분' },
   { key: 'field', label: '분야' },
   { key: 'professor', label: '교수' },
-  { key: 'difficulty', label: '난이도' },
   { key: 'studentOpinion', label: '학생 의견' },
   { key: 'method', label: '강의방식' },
   { key: 'objective', label: '수업목표/개요' },
@@ -20,11 +19,10 @@ const COMPARE_ROWS = [
 ];
 
 function filterCourses(courses, options) {
-  const { query = '', track = 'all', difficulty = 'all', field = 'all' } = options || {};
+  const { query = '', track = 'all', field = 'all' } = options || {};
   const q = query.trim().toLowerCase();
   return courses.filter((course) => {
     if (track !== 'all' && course.track !== track) return false;
-    if (difficulty !== 'all' && course.difficulty !== difficulty) return false;
     if (field !== 'all' && course.field !== field) return false;
     if (q) {
       const haystack = `${course.name} ${course.professor}`.toLowerCase();
