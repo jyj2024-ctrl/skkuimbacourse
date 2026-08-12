@@ -169,6 +169,11 @@
       </table>`;
   }
 
+  function renderCurriculumCell(course) {
+    if (!course.syllabus) return '수업계획서 미제출';
+    return renderCurriculumTable(course.syllabus.curriculum);
+  }
+
   function openModal(course) {
     openCourseId = course.id;
     const s = course.syllabus;
@@ -247,7 +252,13 @@
       .join('');
 
     const bodyRows = rows
-      .map((row) => `<tr><th>${row.label}</th>${row.values.map((v) => `<td>${v}</td>`).join('')}</tr>`)
+      .map((row) => {
+        const cells =
+          row.key === 'curriculum'
+            ? selected.map((c) => `<td>${renderCurriculumCell(c)}</td>`).join('')
+            : row.values.map((v) => `<td>${v}</td>`).join('');
+        return `<tr><th>${row.label}</th>${cells}</tr>`;
+      })
       .join('');
 
     compareSection.innerHTML = `
