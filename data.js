@@ -38,7 +38,7 @@ const COURSES = [
     field: `Marketing/Management`,
     professor: `장영봉`,
     difficulty: `상`,
-    studentOpinion: `통계학 기초 수업. 파이썬 사용하지 않지만, 통계이론을 이해하고 데이터 분석하여 적용할 수 있어야 함.`,
+    studentOpinion: `난이도: 상. 통계학 기초 수업. 파이썬 사용하지 않지만, 통계이론을 이해하고 데이터 분석하여 적용할 수 있어야 함.\n파이썬 사용, 비추하는 분들 많음, 어렵고 점수 잘 안줌, 기말시험은 기출문제와 동일하며 치팅시트만 잘 정리하면됨,한 문제 빼고 치팅시트 대로 써도 점수를 못받음,확률과 통계 기초 수업,잘 작성해서 들어가면 똑같이 나옴, 통계관련 레포트 3장 이내 제출\n통계분석이나 통계자료 활용이면 됨,출석 질문 반영하는듯\n부지런하면 확률 통계 몰라도 성적 잘주심 ,정말 호불호 명확`,
     sessions: [
       { date: `2026-09-12`, startTime: `16:50`, endTime: `18:20`, type: `오프라인`, session: `1/5`, period: `4교시` },
       { date: `2026-09-22`, startTime: `19:00`, endTime: `20:00`, type: `화상`, session: `1/3` },
@@ -96,7 +96,7 @@ const COURSES = [
     field: `Marketing/Management`,
     professor: `류성민`,
     difficulty: `중`,
-    studentOpinion: `출석 중요. 수업시간 질문 있음. 유통업 (쿠팡, 신세계, 이마트, GS 등) 관련 원우에게 질문 많음. 시험은 OX 문제와 객관식 위주.`,
+    studentOpinion: `난이도: 중. 출석 중요. 수업시간 질문 있음. 유통업 (쿠팡, 신세계, 이마트, GS 등) 관련 원우에게 질문 많음. 시험은 OX 문제와 객관식 위주.\n출석 20%, 지각 안됨. 출장도 인정 안됨.\n과제 없고 기말만 한번. 치팅페이퍼 없음, OX문제 60문제 시험감독 빠듯함\n출석만 잘하면 무난, 온라인 수업 출석 안해도 별 상관없음`,
     sessions: [
       { date: `2026-09-11`, startTime: `19:00`, endTime: `20:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-12`, startTime: `16:50`, endTime: `18:20`, type: `오프라인`, session: `1/5`, period: `4교시` },
@@ -243,7 +243,7 @@ const COURSES = [
     field: `Marketing/Management`,
     professor: `이석규`,
     difficulty: `중`,
-    studentOpinion: `중간고사 50문제, 기말 70문제, 독후감 2편 제출.`,
+    studentOpinion: `난이도: 중. 중간고사 50문제, 기말 70문제, 독후감 2편 제출. \n수업 내용 괜찮음(많은 내용을 넓게 배움) 과제/시험 부담감 있음,교수님 좋고 열정 넘치심\n시험 2번/퀴즈 4번/독후감 2개. \n수업 내용 괜찮음. 과제/시험 부담 조금 있음.\n50% A+ 나머진 B+ 시험 변별력 크게 없는 수준임\n많은 내용을 넓게 배움\n수업내용은 마케팅의 광범위한 이론들에 대해 간단한 소개 수준으로 난이도 낮음\n다만 시험은 범위가 넓고 문제가 꼬여있어 쉽지 않음. 수업복습보다는 족보만 파는게 유리이 책을 읽으며 많은 인사이트를 받았다\n오래된 족보에서 문제가 많이 나온다  교수님이 열정이 높으시다 마케팅 실무자가 아니면 따라가기 어렵지 않냐~`,
     sessions: [
       { date: `2026-09-05`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `1/5`, period: `3교시` },
       { date: `2026-09-19`, startTime: `16:50`, endTime: `18:20`, type: `오프라인`, session: `2/5`, period: `4교시` },
@@ -382,7 +382,7 @@ const COURSES = [
     field: `Global/Innovation`,
     professor: `김상균`,
     difficulty: `하`,
-    studentOpinion: `하버드 비즈니스 리뷰 자료로 팀과제 진행. 발표에 대한 피드백 적극적이신 편.`,
+    studentOpinion: `난이도: 하. 하버드 비즈니스 리뷰 자료로 팀과제 진행. 발표에 대한 피드백 적극적이신 편.\n하버드비즈니스스쿨자료를 기반으로 조별과제 부여, 수업 내용 좋고 교수님 무난\n실질적으로 해외 진출시 어떻게 적응될수있는지 ,알수 있다 ,하버드비즈니스리뷰(HBR) 등을 리뷰한다\n개인레포트는 회사를 선정하여 워드 5매 이내로 제출한다 대신 기말고사는 없다\n학습방법에 대해 정리를 하면 좋겠다 국제경영론이다 보니깐 암기할 필요가 없다\n교수가 말하는걸 참 좋아한다`,
     sessions: [
       { date: `2026-09-05`, startTime: `16:50`, endTime: `18:20`, type: `오프라인`, session: `1/5`, period: `4교시` },
       { date: `2026-09-12`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `2/5`, period: `1교시` },
@@ -475,7 +475,7 @@ const COURSES = [
     field: `Accounting/Finance`,
     professor: `안희준`,
     difficulty: `중`,
-    studentOpinion: `투자론 원론에 대한 수업. 시장경제 바탕의 증권이론을 배움. 시험 계산문제 다수. 팀과제 있으나 발표는 안함.`,
+    studentOpinion: `난이도: 중. 투자론 원론에 대한 수업. 시장경제 바탕의 증권이론을 배움. 시험 계산문제 다수. 팀과제 있으나 발표는 안함.\n이해위주의 강의 시험문제는 교재 문제에서 다 나옴 , 시험문제는 OX 50% 주관식 50% 시험에 공식지 1장 작성하여 들어가도 됨 수강한 사람들 평 좋음, 선행학습은 필요하며 과제는 엑셀 할줄알면 쉽게 풀수 있음(조과제 1)\n시험때 재무용계산기 추천\n투자론 교수님과 존함이 같으니 투자론이 증권투자의 이해로 변경된거 같음`,
     sessions: [
       { date: `2026-09-02`, startTime: `20:00`, endTime: `21:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-16`, startTime: `20:00`, endTime: `21:00`, type: `화상`, session: `2/3` },
@@ -542,7 +542,7 @@ const COURSES = [
     field: null,
     professor: `신지선`,
     difficulty: `하`,
-    studentOpinion: `조직내에서의 인간의 행동을 연구하는 수업. 수업이 팀과제로만 이루어져 있음. 첫학기에 조별로 친해지기에 좋은 수업!`,
+    studentOpinion: `난이도: 하. 조직내에서의 인간의 행동을 연구하는 수업. 수업이 팀과제로만 이루어져 있음. 첫학기에 조별로 친해지기에 좋은 수업!\n조별 발표 위주로 수업진행, 발표후 수업 부담감 적음\n중간고사는 족보랑 똑같이 나왔고(24년 25년) 기말고사는 꼬아서 냄\n교수가 1번도 수업을 안하고 온라인강의만 듣는 수업이고, 전체 다 발표로만 진행됨\n얻어가는게 거의 없는 수업 점수도 잘주는 편이 아님`,
     sessions: [
       { date: `2026-09-03`, startTime: `20:00`, endTime: `21:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-19`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `1/4`, period: `3교시` },
@@ -682,7 +682,7 @@ const COURSES = [
     field: `Global/Innovation`,
     professor: `박기우`,
     difficulty: `중`,
-    studentOpinion: `MIS 기본 개념과 최신 트렌드 이해할 수 있는 수업.`,
+    studentOpinion: `난이도: 중. MIS 기본 개념과 최신 트렌드 이해할 수 있는 수업. \n과제량 매우 많음, 경영정보시스템(컴퓨터 개론 비슷) 에 대한 기초지식 없으면 힘들수 있음,수업 내용은 과제와 온라인 복습하면서 Remind 하는 방식으로 토론식 유도, 교수님 매우 젠틀, MIS 기초 및 트렌드 이해 가능`,
     sessions: [
       { date: `2026-09-05`, startTime: `13:30`, endTime: `15:00`, type: `오프라인`, session: `1/4`, period: `2교시` },
       { date: `2026-09-19`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `2/4`, period: `3교시` },
@@ -772,7 +772,7 @@ const COURSES = [
     field: `Accounting/Finance`,
     professor: `박영규`,
     difficulty: `상`,
-    studentOpinion: `선물, 옵션에 대한 강의로 기초지식이 없다면 사전학습 필수.`,
+    studentOpinion: `난이도: 상. 선물, 옵션에 대한 강의로 기초지식이 없다면 사전학습 필수.\n중간고사(오픈북), 기말고사(오픈북X) 선물,옵션 등 이해가 필요한 부분이 있음(사전공부)\n기말은 비교적 쉽고 암기에 대한 부분이 많아 변별력을 높이기 위해 오픈북 금지로 변경\n글로벌 금융시장의 변천사, 글로벌 금융, 자금 조달, 선물/옵션 등의 실무 중심 강의\n족보가 시험 당일 돌았는데 시험과 똑같이 나왔다는 소문 있음(중간고사)\n풋옵션/선물을 계산해라, 매우 어려운듯\n과제는 2개가 있다  과제는 Chatgpt 시장을 예측해라\n교수님이 25년 겨울학기에 흑화하셨다고 함`,
     sessions: [
       { date: `2026-09-05`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `1/5`, period: `1교시` },
       { date: `2026-09-12`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `2/5`, period: `3교시` },
