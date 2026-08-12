@@ -31,8 +31,8 @@ test('group sizes match the source spreadsheet (A6 B6 C6 D6 E5 F1)', () => {
   assert.deepEqual(counts, { A: 6, B: 6, C: 6, D: 6, E: 5, F: 1 });
 });
 
-test('exactly 22 courses have a non-null syllabus', () => {
-  assert.equal(COURSES.filter((c) => c.syllabus !== null).length, 22);
+test('all 30 courses now have a non-null syllabus (22 original + 8 manually filled in)', () => {
+  assert.equal(COURSES.filter((c) => c.syllabus !== null).length, 30);
 });
 
 test('courses with a syllabus expose all six documented fields (value may be null)', () => {
@@ -41,6 +41,28 @@ test('courses with a syllabus expose all six documented fields (value may be nul
     for (const field of ['method', 'objective', 'evaluation', 'curriculum', 'textbook', 'note']) {
       assert.ok(field in c.syllabus, `${c.name} syllabus missing "${field}" key`);
     }
+  }
+});
+
+test('the 8 manually-filled courses have objective/evaluation but no method/curriculum/textbook yet', () => {
+  const manuallyFilled = [
+    '경영자를위한데이터분석및통계적 사고',
+    '유통관리론',
+    '마케팅믹스론',
+    '국제경영론',
+    '증권투자의이해',
+    '조직행동론',
+    '최신정보시스템사례와전략',
+    '글로벌금융시장',
+  ];
+  for (const name of manuallyFilled) {
+    const course = COURSES.find((c) => c.name === name);
+    assert.ok(course, `course "${name}" not found`);
+    assert.equal(typeof course.syllabus.objective, 'string', `${name}: objective should be filled in`);
+    assert.equal(typeof course.syllabus.evaluation, 'string', `${name}: evaluation should be filled in`);
+    assert.equal(course.syllabus.method, null, `${name}: method not provided by the manual sheet, should stay null`);
+    assert.equal(course.syllabus.curriculum, null, `${name}: curriculum not provided by the manual sheet, should stay null`);
+    assert.equal(course.syllabus.textbook, null, `${name}: textbook not provided by the manual sheet, should stay null`);
   }
 });
 
