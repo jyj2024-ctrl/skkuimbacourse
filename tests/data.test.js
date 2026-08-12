@@ -44,7 +44,7 @@ test('courses with a syllabus expose all six documented fields (value may be nul
   }
 });
 
-test('the 8 manually-filled courses have objective/evaluation but no method/curriculum/textbook yet', () => {
+test('the 8 manually-filled courses have method/objective/evaluation but no curriculum/textbook yet', () => {
   const manuallyFilled = [
     '경영자를위한데이터분석및통계적 사고',
     '유통관리론',
@@ -58,9 +58,9 @@ test('the 8 manually-filled courses have objective/evaluation but no method/curr
   for (const name of manuallyFilled) {
     const course = COURSES.find((c) => c.name === name);
     assert.ok(course, `course "${name}" not found`);
+    assert.equal(typeof course.syllabus.method, 'string', `${name}: method should be filled in`);
     assert.equal(typeof course.syllabus.objective, 'string', `${name}: objective should be filled in`);
     assert.equal(typeof course.syllabus.evaluation, 'string', `${name}: evaluation should be filled in`);
-    assert.equal(course.syllabus.method, null, `${name}: method not provided by the manual sheet, should stay null`);
     assert.equal(course.syllabus.curriculum, null, `${name}: curriculum not provided by the manual sheet, should stay null`);
     assert.equal(course.syllabus.textbook, null, `${name}: textbook not provided by the manual sheet, should stay null`);
   }
