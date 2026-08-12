@@ -31,6 +31,11 @@
   --taken-card-bg: #e6e6dd;
   --taken-bg: #d3d3c4;
   --taken-ink: #4a4a3a;
+
+  --type-offline-bg: #d9f0e0;
+  --type-offline-ink: #1f5c40;
+  --type-video-bg: #d6e8f5;
+  --type-video-ink: #1f4a7a;
 }
 
 * { box-sizing: border-box; }
@@ -112,6 +117,8 @@ body {
 .field-accounting { background: var(--field-accounting-bg); color: var(--field-accounting-ink); }
 .field-global { background: var(--field-global-bg); color: var(--field-global-ink); }
 .badge-taken { background: var(--taken-bg); color: var(--taken-ink); }
+.type-offline { background: var(--type-offline-bg); color: var(--type-offline-ink); }
+.type-video { background: var(--type-video-bg); color: var(--type-video-ink); }
 
 /* Cards */
 .course-grid {

@@ -332,16 +332,18 @@
     compareSection.scrollIntoView({ behavior: 'smooth' });
   });
 
-  // --- Schedule simulation (등교일정표) ---
+  // --- Schedule simulation (수업일정표: 오프라인 + 화상 수업 일정) ---
+
+  const TYPE_CLASS = { 오프라인: 'type-offline', 화상: 'type-video' };
 
   function exportScheduleToExcel(rows) {
-    const header = ['날짜', '요일', '시간', '과목명'];
-    const data = rows.map((r) => [r.date, r.dayOfWeek, `${r.startTime}~${r.endTime}`, r.courseName]);
+    const header = ['날짜', '요일', '시간', '구분', '과목명'];
+    const data = rows.map((r) => [r.date, r.dayOfWeek, `${r.startTime}~${r.endTime}`, r.type, r.courseName]);
     const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
-    worksheet['!cols'] = [{ wch: 12 }, { wch: 6 }, { wch: 14 }, { wch: 28 }];
+    worksheet['!cols'] = [{ wch: 12 }, { wch: 6 }, { wch: 14 }, { wch: 10 }, { wch: 28 }];
     const workbook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(workbook, worksheet, '등교일정표');
-    XLSX.writeFile(workbook, '등교일정표.xlsx');
+    XLSX.utils.book_append_sheet(workbook, worksheet, '수업일정표');
+    XLSX.writeFile(workbook, '수업일정표.xlsx');
   }
 
   function renderScheduleSection() {
@@ -357,22 +359,22 @@
       ? `
         <div class="schedule-table-wrap">
           <table class="schedule-table">
-            <thead><tr><th>날짜</th><th>요일</th><th>시간</th><th>과목명</th></tr></thead>
+            <thead><tr><th>날짜</th><th>요일</th><th>시간</th><th>구분</th><th>과목명</th></tr></thead>
             <tbody>
               ${rows
                 .map(
                   (r) =>
-                    `<tr><td>${r.date}</td><td>${r.dayOfWeek}</td><td>${r.startTime}~${r.endTime}</td><td>${r.courseName}</td></tr>`
+                    `<tr><td>${r.date}</td><td>${r.dayOfWeek}</td><td>${r.startTime}~${r.endTime}</td><td><span class="badge ${TYPE_CLASS[r.type] || ''}">${r.type}</span></td><td>${r.courseName}</td></tr>`
                 )
                 .join('')}
             </tbody>
           </table>
         </div>
         <button type="button" class="btn btn-primary schedule-excel-btn">엑셀 다운로드</button>`
-      : `<p class="schedule-empty">아직 등교일정 데이터가 준비되지 않았습니다. 데이터가 입력되면 이 화면에 자동으로 표시됩니다.</p>`;
+      : `<p class="schedule-empty">아직 수업일정 데이터가 준비되지 않았습니다. 데이터가 입력되면 이 화면에 자동으로 표시됩니다.</p>`;
 
     scheduleSection.innerHTML = `
-      <h2 class="schedule-heading">등교일정표 — ${selected.map((c) => c.name).join(', ')}</h2>
+      <h2 class="schedule-heading">수업일정표 — ${selected.map((c) => c.name).join(', ')}</h2>
       ${body}
     `;
     scheduleSection.classList.remove('hidden');

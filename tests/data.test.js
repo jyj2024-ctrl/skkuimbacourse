@@ -67,9 +67,40 @@ test('field distribution matches the field reference table (8 Marketing/Manageme
   });
 });
 
-test('every course has an offlineSessions key, currently null pending real schedule data', () => {
+test('every course has a sessions array (오프라인/화상 class schedule)', () => {
   for (const c of COURSES) {
-    assert.ok('offlineSessions' in c, `${c.name} missing offlineSessions key`);
-    assert.equal(c.offlineSessions, null, `${c.name}: offlineSessions should be null until real data is provided`);
+    assert.ok('sessions' in c, `${c.name} missing sessions key`);
+    assert.ok(Array.isArray(c.sessions) && c.sessions.length > 0, `${c.name}: sessions should be a non-empty array`);
   }
+});
+
+test('every session entry has a valid date, start/end time, and type', () => {
+  const allowedType = new Set(['오프라인', '화상']);
+  const dateRe = /^\d{4}-\d{2}-\d{2}$/;
+  const timeRe = /^\d{2}:\d{2}$/;
+  for (const c of COURSES) {
+    for (const session of c.sessions) {
+      assert.ok(dateRe.test(session.date), `${c.name}: invalid date "${session.date}"`);
+      assert.ok(timeRe.test(session.startTime), `${c.name}: invalid startTime "${session.startTime}"`);
+      assert.ok(timeRe.test(session.endTime), `${c.name}: invalid endTime "${session.endTime}"`);
+      assert.ok(allowedType.has(session.type), `${c.name}: unexpected session type "${session.type}"`);
+    }
+  }
+});
+
+test('offline sessions carry a 교시 period label, video sessions do not', () => {
+  for (const c of COURSES) {
+    for (const session of c.sessions) {
+      if (session.type === '오프라인') {
+        assert.equal(typeof session.period, 'string', `${c.name}: offline session missing period`);
+      } else {
+        assert.ok(!('period' in session), `${c.name}: video session should not have a period field`);
+      }
+    }
+  }
+});
+
+test('total session count across all courses matches the imported schedule (236)', () => {
+  const total = COURSES.reduce((sum, c) => sum + c.sessions.length, 0);
+  assert.equal(total, 236);
 });

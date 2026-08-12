@@ -109,19 +109,19 @@ test('parseCurriculum returns an empty array for a null/undefined curriculum', (
 const scheduleSample = [
   {
     id: 'x1', name: '기업재무전략론',
-    offlineSessions: [
-      { date: '2026-09-05', startTime: '09:00', endTime: '12:00', label: '재무제표와 가치평가' },
-      { date: '2026-10-24', startTime: '09:00', endTime: '12:00', label: '중간고사' },
+    sessions: [
+      { date: '2026-09-05', startTime: '09:00', endTime: '12:00', type: '오프라인', session: '1/5', period: '1교시' },
+      { date: '2026-10-24', startTime: '09:00', endTime: '12:00', type: '오프라인', session: '2/5', period: '1교시' },
     ],
   },
   {
     id: 'x2', name: '창업실무론',
-    offlineSessions: [{ date: '2026-09-01', startTime: '08:00', endTime: '10:00', label: '강의소개' }],
+    sessions: [{ date: '2026-09-01', startTime: '08:00', endTime: '10:00', type: '화상', session: '1/3' }],
   },
-  { id: 'x3', name: '핀테크와행동재무', offlineSessions: null },
+  { id: 'x3', name: '핀테크와행동재무', sessions: null },
 ];
 
-test('buildScheduleRows merges offline sessions from every selected course, sorted by date then time', () => {
+test('buildScheduleRows merges sessions from every selected course, sorted by date then time', () => {
   const rows = Logic.buildScheduleRows(scheduleSample);
   assert.deepEqual(
     rows.map((r) => [r.date, r.startTime, r.courseName]),
@@ -139,14 +139,20 @@ test('buildScheduleRows computes the correct Korean weekday label from the date'
   assert.equal(rows.find((r) => r.date === '2026-09-05').dayOfWeek, '토');
 });
 
-test('buildScheduleRows skips courses with no offlineSessions and carries the session label', () => {
+test('buildScheduleRows skips courses with no sessions and carries type/session/period', () => {
   const rows = Logic.buildScheduleRows(scheduleSample);
   assert.equal(rows.length, 3);
   assert.ok(!rows.some((r) => r.courseName === '핀테크와행동재무'));
-  assert.equal(rows.find((r) => r.date === '2026-10-24').label, '중간고사');
+  const videoRow = rows.find((r) => r.courseName === '창업실무론');
+  assert.equal(videoRow.type, '화상');
+  assert.equal(videoRow.session, '1/3');
+  assert.equal(videoRow.period, '');
+  const offlineRow = rows.find((r) => r.date === '2026-10-24');
+  assert.equal(offlineRow.type, '오프라인');
+  assert.equal(offlineRow.period, '1교시');
 });
 
-test('buildScheduleRows returns an empty array when no selected course has offline sessions', () => {
+test('buildScheduleRows returns an empty array when no selected course has sessions', () => {
   assert.deepEqual(Logic.buildScheduleRows([scheduleSample[2]]), []);
   assert.deepEqual(Logic.buildScheduleRows([]), []);
 });

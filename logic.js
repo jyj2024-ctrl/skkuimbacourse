@@ -77,8 +77,8 @@ const WEEKDAY_LABEL = ['일', '월', '화', '수', '목', '금', '토'];
 function buildScheduleRows(selectedCourses) {
   const rows = [];
   for (const course of selectedCourses) {
-    if (!course.offlineSessions) continue;
-    for (const session of course.offlineSessions) {
+    if (!course.sessions) continue;
+    for (const session of course.sessions) {
       const parsedDate = new Date(`${session.date}T00:00:00`);
       const dayOfWeek = Number.isNaN(parsedDate.getTime()) ? '' : WEEKDAY_LABEL[parsedDate.getDay()];
       rows.push({
@@ -87,7 +87,9 @@ function buildScheduleRows(selectedCourses) {
         startTime: session.startTime || '',
         endTime: session.endTime || '',
         courseName: course.name,
-        label: session.label || '',
+        type: session.type || '',
+        session: session.session || '',
+        period: session.period || '',
       });
     }
   }
