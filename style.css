@@ -187,6 +187,18 @@ body {
 .modal-syllabus dt { font-weight: 700; margin-top: 12px; }
 .modal-syllabus dd { margin: 4px 0 0; color: var(--ink); }
 .modal-no-syllabus { color: var(--ink-muted); font-style: italic; }
+.curriculum-table {
+  width: 100%; border-collapse: collapse; margin-top: 4px;
+  border: 1px solid var(--border-soft); border-radius: var(--radius-md); overflow: hidden;
+}
+.curriculum-table th, .curriculum-table td {
+  padding: 8px 12px; border-bottom: 1px solid var(--border-soft); text-align: left;
+  font-size: 0.85rem; vertical-align: top;
+}
+.curriculum-table thead th { background: #f4f5ec; font-weight: 700; }
+.curriculum-table td:first-child { width: 96px; font-weight: 700; white-space: nowrap; }
+.curriculum-table tbody tr:last-child td { border-bottom: none; }
+.curriculum-table tbody tr:nth-child(even) { background: #fafaf3; }
 .modal-compare-toggle { display: flex; align-items: center; gap: 8px; margin-top: 24px; font-weight: 600; }
 
 /* Responsive */

@@ -72,7 +72,28 @@ function buildCompareRows(selectedCourses) {
   }));
 }
 
-const Logic = { GROUP_ORDER, FIELD_ORDER, filterCourses, groupCourses, findGroupConflicts, buildCompareRows };
+function parseCurriculum(curriculum) {
+  if (!curriculum) return [];
+  return curriculum
+    .split(';')
+    .map((entry) => entry.trim())
+    .filter(Boolean)
+    .map((entry) => {
+      const idx = entry.indexOf(':');
+      if (idx === -1) return { week: '', content: entry };
+      return { week: entry.slice(0, idx).trim(), content: entry.slice(idx + 1).trim() };
+    });
+}
+
+const Logic = {
+  GROUP_ORDER,
+  FIELD_ORDER,
+  filterCourses,
+  groupCourses,
+  findGroupConflicts,
+  buildCompareRows,
+  parseCurriculum,
+};
 
 if (typeof module !== 'undefined') {
   module.exports = Logic;

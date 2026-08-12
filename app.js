@@ -157,6 +157,18 @@
 
   // --- Detail modal ---
 
+  function renderCurriculumTable(curriculum) {
+    const rows = Logic.parseCurriculum(curriculum);
+    if (rows.length === 0) return '<p>정보 없음</p>';
+    return `
+      <table class="curriculum-table">
+        <thead><tr><th>주차</th><th>내용</th></tr></thead>
+        <tbody>
+          ${rows.map((r) => `<tr><td>${r.week}</td><td>${r.content}</td></tr>`).join('')}
+        </tbody>
+      </table>`;
+  }
+
   function openModal(course) {
     openCourseId = course.id;
     const s = course.syllabus;
@@ -166,7 +178,7 @@
           <dt>강의방식</dt><dd>${s.method || '정보 없음'}</dd>
           <dt>수업목표/개요</dt><dd>${s.objective || '정보 없음'}</dd>
           <dt>평가방법</dt><dd>${s.evaluation || '정보 없음'}</dd>
-          <dt>주차별 커리큘럼</dt><dd>${s.curriculum || '정보 없음'}</dd>
+          <dt>주차별 커리큘럼</dt><dd>${renderCurriculumTable(s.curriculum)}</dd>
           <dt>교재/참고자료</dt><dd>${s.textbook || '정보 없음'}</dd>
           ${s.note ? `<dt>비고</dt><dd>${s.note}</dd>` : ''}
         </dl>`

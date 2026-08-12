@@ -78,3 +78,30 @@ test('buildCompareRows shows "-" for the field row on a 전공기반 course, and
   const fieldRow = rows.find((r) => r.key === 'field');
   assert.deepEqual(fieldRow.values, ['-', 'Marketing/Management']);
 });
+
+test('parseCurriculum splits "N주차: 내용" entries into week/content pairs', () => {
+  const result = Logic.parseCurriculum('1주차: 개관; 2주차: 은행이란?; 8주차: 중간고사');
+  assert.deepEqual(result, [
+    { week: '1주차', content: '개관' },
+    { week: '2주차', content: '은행이란?' },
+    { week: '8주차', content: '중간고사' },
+  ]);
+});
+
+test('parseCurriculum keeps only the first colon as the week/content split', () => {
+  const result = Logic.parseCurriculum('6~7,9주차: 재무비율분석: 상세');
+  assert.deepEqual(result, [{ week: '6~7,9주차', content: '재무비율분석: 상세' }]);
+});
+
+test('parseCurriculum puts a colon-less trailing entry (e.g. "기말고사") in content with an empty week', () => {
+  const result = Logic.parseCurriculum('15주차: 소비자행동과 마케팅; 기말고사');
+  assert.deepEqual(result, [
+    { week: '15주차', content: '소비자행동과 마케팅' },
+    { week: '', content: '기말고사' },
+  ]);
+});
+
+test('parseCurriculum returns an empty array for a null/undefined curriculum', () => {
+  assert.deepEqual(Logic.parseCurriculum(null), []);
+  assert.deepEqual(Logic.parseCurriculum(undefined), []);
+});
