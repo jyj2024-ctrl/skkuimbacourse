@@ -1,9 +1,25 @@
 (function () {
+  const TAKEN_STORAGE_KEY = 'skku-imba-taken-course-ids';
+
+  function loadTakenIds() {
+    try {
+      const raw = JSON.parse(localStorage.getItem(TAKEN_STORAGE_KEY));
+      return new Set(Array.isArray(raw) ? raw : []);
+    } catch {
+      return new Set();
+    }
+  }
+
+  function saveTakenIds(takenIds) {
+    localStorage.setItem(TAKEN_STORAGE_KEY, JSON.stringify([...takenIds]));
+  }
+
   const state = {
     query: '',
     track: 'all',
     field: 'all',
     selectedIds: new Set(),
+    takenIds: loadTakenIds(),
   };
 
   const courseListEl = document.getElementById('course-list');
@@ -37,10 +53,12 @@
   }
 
   function renderCourseCard(course) {
+    const isTaken = state.takenIds.has(course.id);
     const card = document.createElement('article');
-    card.className = 'course-card';
+    card.className = `course-card${isTaken ? ' is-taken' : ''}`;
     card.dataset.id = course.id;
     const checked = state.selectedIds.has(course.id) ? 'checked' : '';
+    const takenChecked = isTaken ? 'checked' : '';
     card.innerHTML = `
       <label class="course-card-checkbox">
         <input type="checkbox" class="course-checkbox" data-id="${course.id}" ${checked} />
@@ -48,12 +66,17 @@
       </label>
       <div class="course-card-body">
         <div class="course-card-badges">
+          ${isTaken ? '<span class="badge badge-taken">수강완료</span>' : ''}
           <span class="badge badge-track">${course.track}</span>
           ${course.field ? `<span class="badge ${FIELD_CLASS[course.field]}">${course.field}</span>` : ''}
         </div>
         <h3 class="course-card-name">${course.name}</h3>
         <p class="course-card-professor">${course.professor} 교수</p>
         <p class="course-card-opinion">${course.studentOpinion}</p>
+        <label class="course-card-taken">
+          <input type="checkbox" class="taken-checkbox" data-id="${course.id}" ${takenChecked} />
+          이미 수강함
+        </label>
       </div>
     `;
     return card;
@@ -135,13 +158,27 @@
     if (!scheduleSection.classList.contains('hidden')) renderScheduleSection();
   }
 
+  function toggleTaken(id) {
+    if (state.takenIds.has(id)) state.takenIds.delete(id);
+    else state.takenIds.add(id);
+    saveTakenIds(state.takenIds);
+    renderGroups();
+    if (openCourseId) openModal(courseById(openCourseId));
+  }
+
   courseListEl.addEventListener('change', (event) => {
     const checkbox = event.target.closest('.course-checkbox');
-    if (checkbox) toggleSelection(checkbox.dataset.id);
+    if (checkbox) {
+      toggleSelection(checkbox.dataset.id);
+      return;
+    }
+    const takenCheckbox = event.target.closest('.taken-checkbox');
+    if (takenCheckbox) toggleTaken(takenCheckbox.dataset.id);
   });
 
   courseListEl.addEventListener('click', (event) => {
     if (event.target.closest('.course-card-checkbox')) return;
+    if (event.target.closest('.course-card-taken')) return;
     const card = event.target.closest('.course-card');
     if (card) openModal(courseById(card.dataset.id));
   });
@@ -197,6 +234,7 @@
 
     modalBody.innerHTML = `
       <div class="course-card-badges">
+        ${state.takenIds.has(course.id) ? '<span class="badge badge-taken">수강완료</span>' : ''}
         <span class="badge group-badge group-${course.group}">그룹 ${course.group}</span>
         <span class="badge badge-track">${course.track}</span>
         ${course.field ? `<span class="badge ${FIELD_CLASS[course.field]}">${course.field}</span>` : ''}
@@ -211,6 +249,10 @@
         <input type="checkbox" class="course-checkbox" data-id="${course.id}" ${state.selectedIds.has(course.id) ? 'checked' : ''} />
         비교 목록에 추가
       </label>
+      <label class="modal-compare-toggle">
+        <input type="checkbox" class="taken-checkbox" data-id="${course.id}" ${state.takenIds.has(course.id) ? 'checked' : ''} />
+        이미 수강함
+      </label>
     `;
     modalOverlay.classList.remove('hidden');
   }
@@ -223,7 +265,12 @@
 
   modalBody.addEventListener('change', (event) => {
     const checkbox = event.target.closest('.course-checkbox');
-    if (checkbox) toggleSelection(checkbox.dataset.id);
+    if (checkbox) {
+      toggleSelection(checkbox.dataset.id);
+      return;
+    }
+    const takenCheckbox = event.target.closest('.taken-checkbox');
+    if (takenCheckbox) toggleTaken(takenCheckbox.dataset.id);
   });
 
   modalClose.addEventListener('click', closeModal);
