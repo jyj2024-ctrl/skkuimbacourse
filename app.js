@@ -17,6 +17,8 @@
   const resetBtn = document.getElementById('reset-btn');
   const compareSection = document.getElementById('compare-section');
   const compareBtn = document.getElementById('compare-btn');
+  const scheduleBtn = document.getElementById('schedule-btn');
+  const scheduleSection = document.getElementById('schedule-section');
   const modalOverlay = document.getElementById('modal-overlay');
   const modalBody = document.getElementById('modal-body');
   const modalClose = document.getElementById('modal-close');
@@ -104,6 +106,7 @@
 
   function renderCompareBar() {
     const selected = [...state.selectedIds].map(courseById).filter(Boolean);
+    scheduleBtn.classList.toggle('hidden', selected.length !== 3);
     if (selected.length === 0) {
       compareBar.classList.add('hidden');
       compareCountEl.textContent = '0개 과목 선택됨';
@@ -129,6 +132,7 @@
     renderCompareBar();
     if (openCourseId) openModal(courseById(openCourseId));
     if (!compareSection.classList.contains('hidden')) renderCompareSection();
+    if (!scheduleSection.classList.contains('hidden')) renderScheduleSection();
   }
 
   courseListEl.addEventListener('change', (event) => {
@@ -153,6 +157,8 @@
     renderCompareBar();
     compareSection.classList.add('hidden');
     compareSection.innerHTML = '';
+    scheduleSection.classList.add('hidden');
+    scheduleSection.innerHTML = '';
   });
 
   // --- Detail modal ---
@@ -277,6 +283,63 @@
   compareBtn.addEventListener('click', () => {
     renderCompareSection();
     compareSection.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // --- Schedule simulation (등교일정표) ---
+
+  function exportScheduleToExcel(rows) {
+    const header = ['날짜', '요일', '시간', '과목명'];
+    const data = rows.map((r) => [r.date, r.dayOfWeek, `${r.startTime}~${r.endTime}`, r.courseName]);
+    const worksheet = XLSX.utils.aoa_to_sheet([header, ...data]);
+    worksheet['!cols'] = [{ wch: 12 }, { wch: 6 }, { wch: 14 }, { wch: 28 }];
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, '등교일정표');
+    XLSX.writeFile(workbook, '등교일정표.xlsx');
+  }
+
+  function renderScheduleSection() {
+    const selected = [...state.selectedIds].map(courseById).filter(Boolean);
+    if (selected.length !== 3) {
+      scheduleSection.classList.add('hidden');
+      scheduleSection.innerHTML = '';
+      return;
+    }
+    const rows = Logic.buildScheduleRows(selected);
+
+    const body = rows.length
+      ? `
+        <div class="schedule-table-wrap">
+          <table class="schedule-table">
+            <thead><tr><th>날짜</th><th>요일</th><th>시간</th><th>과목명</th></tr></thead>
+            <tbody>
+              ${rows
+                .map(
+                  (r) =>
+                    `<tr><td>${r.date}</td><td>${r.dayOfWeek}</td><td>${r.startTime}~${r.endTime}</td><td>${r.courseName}</td></tr>`
+                )
+                .join('')}
+            </tbody>
+          </table>
+        </div>
+        <button type="button" class="btn btn-primary schedule-excel-btn">엑셀 다운로드</button>`
+      : `<p class="schedule-empty">아직 등교일정 데이터가 준비되지 않았습니다. 데이터가 입력되면 이 화면에 자동으로 표시됩니다.</p>`;
+
+    scheduleSection.innerHTML = `
+      <h2 class="schedule-heading">등교일정표 — ${selected.map((c) => c.name).join(', ')}</h2>
+      ${body}
+    `;
+    scheduleSection.classList.remove('hidden');
+  }
+
+  scheduleBtn.addEventListener('click', () => {
+    renderScheduleSection();
+    scheduleSection.scrollIntoView({ behavior: 'smooth' });
+  });
+
+  scheduleSection.addEventListener('click', (event) => {
+    if (!event.target.closest('.schedule-excel-btn')) return;
+    const selected = [...state.selectedIds].map(courseById).filter(Boolean);
+    exportScheduleToExcel(Logic.buildScheduleRows(selected));
   });
 
   renderGroups();

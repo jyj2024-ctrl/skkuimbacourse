@@ -38,6 +38,8 @@
 
   <section id="compare-section" class="compare-section hidden"></section>
 
+  <section id="schedule-section" class="schedule-section hidden"></section>
+
   <div id="compare-bar" class="compare-bar hidden">
     <div class="compare-bar-inner">
       <span class="compare-count">0개 과목 선택됨</span>
@@ -45,6 +47,7 @@
       <span class="compare-warning"></span>
       <div class="compare-bar-actions">
         <button type="button" id="reset-btn" class="btn btn-ghost">초기화</button>
+        <button type="button" id="schedule-btn" class="btn btn-primary hidden">등교일정표 보기</button>
         <button type="button" id="compare-btn" class="btn btn-primary">비교하기</button>
       </div>
     </div>
@@ -57,6 +60,7 @@
     </div>
   </div>
 
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="data.js"></script>
   <script src="logic.js"></script>
   <script src="app.js"></script>

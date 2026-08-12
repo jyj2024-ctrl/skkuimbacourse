@@ -105,3 +105,48 @@ test('parseCurriculum returns an empty array for a null/undefined curriculum', (
   assert.deepEqual(Logic.parseCurriculum(null), []);
   assert.deepEqual(Logic.parseCurriculum(undefined), []);
 });
+
+const scheduleSample = [
+  {
+    id: 'x1', name: '기업재무전략론',
+    offlineSessions: [
+      { date: '2026-09-05', startTime: '09:00', endTime: '12:00', label: '재무제표와 가치평가' },
+      { date: '2026-10-24', startTime: '09:00', endTime: '12:00', label: '중간고사' },
+    ],
+  },
+  {
+    id: 'x2', name: '창업실무론',
+    offlineSessions: [{ date: '2026-09-01', startTime: '08:00', endTime: '10:00', label: '강의소개' }],
+  },
+  { id: 'x3', name: '핀테크와행동재무', offlineSessions: null },
+];
+
+test('buildScheduleRows merges offline sessions from every selected course, sorted by date then time', () => {
+  const rows = Logic.buildScheduleRows(scheduleSample);
+  assert.deepEqual(
+    rows.map((r) => [r.date, r.startTime, r.courseName]),
+    [
+      ['2026-09-01', '08:00', '창업실무론'],
+      ['2026-09-05', '09:00', '기업재무전략론'],
+      ['2026-10-24', '09:00', '기업재무전략론'],
+    ]
+  );
+});
+
+test('buildScheduleRows computes the correct Korean weekday label from the date', () => {
+  const rows = Logic.buildScheduleRows(scheduleSample);
+  assert.equal(rows.find((r) => r.date === '2026-09-01').dayOfWeek, '화');
+  assert.equal(rows.find((r) => r.date === '2026-09-05').dayOfWeek, '토');
+});
+
+test('buildScheduleRows skips courses with no offlineSessions and carries the session label', () => {
+  const rows = Logic.buildScheduleRows(scheduleSample);
+  assert.equal(rows.length, 3);
+  assert.ok(!rows.some((r) => r.courseName === '핀테크와행동재무'));
+  assert.equal(rows.find((r) => r.date === '2026-10-24').label, '중간고사');
+});
+
+test('buildScheduleRows returns an empty array when no selected course has offline sessions', () => {
+  assert.deepEqual(Logic.buildScheduleRows([scheduleSample[2]]), []);
+  assert.deepEqual(Logic.buildScheduleRows([]), []);
+});

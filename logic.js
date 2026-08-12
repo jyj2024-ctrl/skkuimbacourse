@@ -72,6 +72,32 @@ function buildCompareRows(selectedCourses) {
   }));
 }
 
+const WEEKDAY_LABEL = ['일', '월', '화', '수', '목', '금', '토'];
+
+function buildScheduleRows(selectedCourses) {
+  const rows = [];
+  for (const course of selectedCourses) {
+    if (!course.offlineSessions) continue;
+    for (const session of course.offlineSessions) {
+      const parsedDate = new Date(`${session.date}T00:00:00`);
+      const dayOfWeek = Number.isNaN(parsedDate.getTime()) ? '' : WEEKDAY_LABEL[parsedDate.getDay()];
+      rows.push({
+        date: session.date,
+        dayOfWeek,
+        startTime: session.startTime || '',
+        endTime: session.endTime || '',
+        courseName: course.name,
+        label: session.label || '',
+      });
+    }
+  }
+  return rows.sort((a, b) => {
+    if (a.date !== b.date) return a.date < b.date ? -1 : 1;
+    if (a.startTime !== b.startTime) return a.startTime < b.startTime ? -1 : 1;
+    return 0;
+  });
+}
+
 function parseCurriculum(curriculum) {
   if (!curriculum) return [];
   return curriculum
@@ -93,6 +119,7 @@ const Logic = {
   findGroupConflicts,
   buildCompareRows,
   parseCurriculum,
+  buildScheduleRows,
 };
 
 if (typeof module !== 'undefined') {

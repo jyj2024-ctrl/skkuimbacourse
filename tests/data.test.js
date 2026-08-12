@@ -66,3 +66,10 @@ test('field distribution matches the field reference table (8 Marketing/Manageme
     'Global/Innovation': 7,
   });
 });
+
+test('every course has an offlineSessions key, currently null pending real schedule data', () => {
+  for (const c of COURSES) {
+    assert.ok('offlineSessions' in c, `${c.name} missing offlineSessions key`);
+    assert.equal(c.offlineSessions, null, `${c.name}: offlineSessions should be null until real data is provided`);
+  }
+});
