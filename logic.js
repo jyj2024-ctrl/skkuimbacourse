@@ -100,6 +100,12 @@ function buildScheduleRows(selectedCourses) {
   });
 }
 
+function summarizeOpinion(studentOpinion) {
+  if (!studentOpinion) return '';
+  const firstLine = studentOpinion.split('\n')[0].trim();
+  return firstLine || studentOpinion.trim();
+}
+
 function parseCurriculum(curriculum) {
   if (!curriculum) return [];
   return curriculum
@@ -122,6 +128,7 @@ const Logic = {
   buildCompareRows,
   parseCurriculum,
   buildScheduleRows,
+  summarizeOpinion,
 };
 
 if (typeof module !== 'undefined') {

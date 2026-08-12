@@ -10,7 +10,7 @@ const COURSES = [
     field: null,
     professor: `이종은`,
     difficulty: `하`,
-    studentOpinion: `회계 기초 지식 위주.`,
+    studentOpinion: `난이도: 하, 회계 기초 지식 위주\n중간고사는 퀴즈에서 많이 나옴,\n중간고사, 기말고사 있음. 중간,기말과제로 교재 연습문제 제출\n외울 것이 많고 계산문제 어려운편`,
     sessions: [
       { date: `2026-09-12`, startTime: `16:50`, endTime: `18:20`, type: `오프라인`, session: `1/5`, period: `4교시` },
       { date: `2026-09-19`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `2/5`, period: `1교시` },
@@ -69,7 +69,7 @@ const COURSES = [
     field: `Accounting/Finance`,
     professor: `한중호`,
     difficulty: `중`,
-    studentOpinion: `금융시장과 펀드 전반의 이해에 도움이 됨.`,
+    studentOpinion: `난이도: 중. 금융시장과 펀드 전반의 이해에 도움이 됨. \n중간 팀과제, 기말 시험(오픈북)\n시험은 교안과 족보에서 많이 출제됨.\n과제는 평이한 내용으로 발표해도 무관 (깊이보다 흥미 위주의 발표 분위기)\n금융업의 태동부터 은행, 보험사, 펀드 등에 대한 이해 및 역사에 대한 학습\n수업 난이도는 비전공자 기준 초급 수준`,
     sessions: [
       { date: `2026-09-12`, startTime: `16:50`, endTime: `18:20`, type: `오프라인`, session: `1/4`, period: `4교시` },
       { date: `2026-10-19`, startTime: `20:00`, endTime: `21:00`, type: `화상`, session: `1/3` },
@@ -133,7 +133,7 @@ const COURSES = [
     field: `Marketing/Management`,
     professor: `김도현`,
     difficulty: `중`,
-    studentOpinion: `기존: 현선해 교수님, 중간고사X. 기말고사O, 개인과제O, 팀과제O, 기말고사 OX, 객관식, 서술형 모두 있음.`,
+    studentOpinion: `신규개설, 혁신과기술경영 개설 교수님 과목인듯함`,
     sessions: [
       { date: `2026-09-15`, startTime: `20:00`, endTime: `21:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-19`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `1/4`, period: `1교시` },
@@ -160,7 +160,7 @@ const COURSES = [
     field: `Accounting/Finance`,
     professor: `조현권`,
     difficulty: `하`,
-    studentOpinion: `실제 사례 중심으로 이해하기 쉽고 재미있는 수업.`,
+    studentOpinion: `난이도: 하. 실제 사례 중심으로 이해하기 쉽고 재미있는 수업.`,
     sessions: [
       { date: `2026-09-08`, startTime: `19:00`, endTime: `20:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-14`, startTime: `19:00`, endTime: `20:00`, type: `화상`, session: `2/3` },
@@ -187,7 +187,7 @@ const COURSES = [
     field: null,
     professor: `오종민`,
     difficulty: `중`,
-    studentOpinion: `재무의 기본 개념과 공식 이해 수업. 엑셀 계산문제 다수.`,
+    studentOpinion: `난이도: 중. 재무의 기본 개념과 공식 이해 수업. 엑셀 계산문제 다수. \n시험 어렵다는 평이 많음`,
     sessions: [
       { date: `2026-09-05`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `1/5`, period: `3교시` },
       { date: `2026-09-30`, startTime: `20:00`, endTime: `21:00`, type: `화상`, session: `1/3` },
@@ -215,7 +215,7 @@ const COURSES = [
     field: `Global/Innovation`,
     professor: `정홍주`,
     difficulty: `하`,
-    studentOpinion: `시험 성적으로 학점이 결정됨.`,
+    studentOpinion: `난이도: 하. 시험 성적으로 학점이 결정됨.\n화상Q&A 매우 짧게 끝내주심, 온라인 출석 안해도 됨 시험은 동영상 강의 교재 학습정리에서 출제\n호불호 갈리나 편하게 학교다니려면 강추한다는 의견 많음`,
     sessions: [
       { date: `2026-09-05`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `1/5`, period: `3교시` },
       { date: `2026-09-12`, startTime: `13:30`, endTime: `15:00`, type: `오프라인`, session: `2/5`, period: `2교시` },
@@ -272,7 +272,7 @@ const COURSES = [
     field: `Global/Innovation`,
     professor: `박태윤`,
     difficulty: `신규과목`,
-    studentOpinion: `신규과목`,
+    studentOpinion: `신규`,
     sessions: [
       { date: `2026-09-05`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `1/5`, period: `3교시` },
       { date: `2026-09-10`, startTime: `19:00`, endTime: `20:00`, type: `화상`, session: `1/3` },
@@ -300,7 +300,7 @@ const COURSES = [
     field: `Accounting/Finance`,
     professor: `최희익`,
     difficulty: `중`,
-    studentOpinion: `회계와 재무 기초 쌓는 과목으로 추천.`,
+    studentOpinion: `난이도: 중. 회계와 재무 기초 쌓는 과목으로 추천. \n치팅페이퍼 X\n문제 꼬는 거 없이 정말 수업 자료(PPT)에서 그대로 나와서 수업 자료 PPT 내용 그대로 복붙해서 옮기고 시험보면 90점 이상 나옴\n팀과제는 제시된 기업의 회계적 이슈 관련해서 조사, 발표`,
     sessions: [
       { date: `2026-09-01`, startTime: `21:00`, endTime: `22:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-12`, startTime: `13:30`, endTime: `15:00`, type: `오프라인`, session: `1/5`, period: `2교시` },
@@ -328,7 +328,7 @@ const COURSES = [
     field: `Accounting/Finance`,
     professor: `김영한`,
     difficulty: `하`,
-    studentOpinion: `재무, 관상, 심리의 콜라보. 개인과제 7~9개 정도 출제됨.`,
+    studentOpinion: `난이도: 하. 재무, 관상, 심리의 콜라보. 개인과제 7~9개 정도 출제됨. \n4page 가량의 컨닝 페이퍼 인정, 교과내용 좋으며 교수님 열정적임,\n주식 안해보신 분은 어려움, - 추천 많음\n객관식 80% 주관식 20%\n객관식 20문제 주관식 4~5문제\n기출문제에서 약 70%정도 나오고  대부분 유사한 문제가 나오는 것으로 추정\n중간고사가 중요, 기말고사는 중간고사 복붙+일부 보기 변경으로 나옴\n치팅시트 4장(앞뒤8페이지) 가능하고  중간고사때는 치팅시트 함께 제출, 기말고사때는 미제출\n개꿀잼과목 + 시험 난이도 하 + 과제난이도 하 + 실시간 트렌드(뉴스/사회적이슈(경제분야)) 반영으로 최신 지식 함양 가능,\n- 유튜브를 보는 듯한 신들린 수업, 매 강의마다 한페이지 숙제 제출(난이도 하), 중간, 기말 있음 : 기출과 치팅페이퍼 활용하면 쉬움`,
     sessions: [
       { date: `2026-09-05`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `1/4`, period: `3교시` },
       { date: `2026-09-12`, startTime: `13:30`, endTime: `15:00`, type: `오프라인`, session: `2/4`, period: `2교시` },
@@ -355,7 +355,7 @@ const COURSES = [
     field: null,
     professor: `서아영`,
     difficulty: `상`,
-    studentOpinion: `기존: 이건창 교수님. 시험 없고 난이도 높은 편이었음.`,
+    studentOpinion: `교수 변경`,
     sessions: [
       { date: `2026-09-05`, startTime: `16:50`, endTime: `18:20`, type: `오프라인`, session: `1/4`, period: `4교시` },
       { date: `2026-09-12`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `2/4`, period: `1교시` },
@@ -419,7 +419,7 @@ const COURSES = [
     field: `Marketing/Management`,
     professor: `전선규`,
     difficulty: `상`,
-    studentOpinion: `학부 때 수업과 시험 난이도. 시험문제 주관식. 치팅페이퍼 없음.`,
+    studentOpinion: `난이도: 상. 학부 때 수업과 시험 난이도. 시험문제 주관식. 치팅페이퍼 없음.\n시험은 주관식 5문제, 암기시험과 같은 분위기, 교수님과 깊이 있는 토론 가능\n실제로 C 이하로 학점 줌`,
     sessions: [
       { date: `2026-09-05`, startTime: `16:50`, endTime: `18:20`, type: `오프라인`, session: `1/5`, period: `4교시` },
       { date: `2026-10-17`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `2/5`, period: `3교시` },
@@ -447,7 +447,7 @@ const COURSES = [
     field: null,
     professor: `한영지`,
     difficulty: `하`,
-    studentOpinion: `마케팅 기초 이론.`,
+    studentOpinion: `난이도: 하. 마케팅 기초 이론.\n조별과제로 기존에 없던 새로운 아이템을 기획해서 투자 IR해야함 평가는 원우들이 하고 조원평가도 있음(점수에 반영됨)\n교수가 처음이고 극P인듯 즉흥적으로 결정하는 사항이 많은편\n중간고사는 개인과제로 대체인데, 마감기한이 고무줄 늘듯 막 늘어남\n원래는 기말을 본다고했다가 수업시간에 학생들 의견 반영해서 그냥 안보기로함\n호불호 많이 갈리고 같은 마케팅관리면 1분만이 낫다는 평이 있음`,
     sessions: [
       { date: `2026-09-02`, startTime: `21:00`, endTime: `22:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-12`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `1/5`, period: `1교시` },
@@ -515,7 +515,7 @@ const COURSES = [
     field: `Accounting/Finance`,
     professor: `최아름`,
     difficulty: `중`,
-    studentOpinion: `기업사례를 통해 기업의 재무적 성과와 비즈니스 전략을 학습.`,
+    studentOpinion: `난이도: 중. 기업사례를 통해 기업의 재무적 성과와 비즈니스 전략을 학습.\n회사들이 회계 부정을 어떻게 저질렀는가 사례 위주로 수업, 젊은 교수님이 최신 자료를 계속 업데이트 해주는 편. 매우 재미있음\n시험 난이도 낮은편(평균 25점 수준)\n조별과제는 기업 하나 선정해서 회계 이슈 분석`,
     sessions: [
       { date: `2026-09-07`, startTime: `19:00`, endTime: `20:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-12`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `1/4`, period: `1교시` },
@@ -571,7 +571,7 @@ const COURSES = [
     field: `Global/Innovation`,
     professor: `김영상`,
     difficulty: `하`,
-    studentOpinion: `다양한 협상 기술 습득 가능. 조별 협상 실습 있음.`,
+    studentOpinion: `난이도: 하. 다양한 협상 기술 습득 가능. 조별 협상 실습 있음.\n시험난이도 평이하며 점수 후함\n오픈북 불가, 협상실습 있음, 개인 과제 있음.\n시험 난이도 평이하며 점수 후함. 교재: 글로벌협상전략 / 박영사 / 안세영\n* 책값이 비싸 참고용으로만, 교재 없어도 시험대비나 학습은 가능.\n중간 40 개인협상레포트 40 출석 및 참여도 20\n시험은 강의교안 위주로 보면됨.\n시험 보는 주간 월요일 Q&A에서 시험이 어디서 나오는지 약 85% 정도 까지는 알려주겠다.\n기말고사가 없는 대신, 개인협상레포트에 배운 것을 많이 인용해야.\n개인협상레포트는, 왠만하면 직장에서의 경험을 담아달라.\n잘되었다면 왜 잘되었는지에 대한 이론과 개념을 매칭. 잘 안되었다면 이렇게 했음 좋았을 거라는 매칭. 배운대로. 부정적인 부분이 있었으면 왜 그랬을까에 대한. /옵션 1, 2 /수업이 100% 토론 수업 전체적인 난이도는 낮음으로 판단됨 (분량은 30장)\n기말고사 없음 개인협상 레포트 작성 시험 전까지 제출하면 됨 시험이 쉽다/조직행동론 심화과목인거 같다 \n간단한 자기소개,강의,2인1조 모의면접실습 중간시험 공부에 도움/ 교안을 공부하세요 \n쉽고 편하게 Approach 가능`,
     sessions: [
       { date: `2026-08-31`, startTime: `20:00`, endTime: `21:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-05`, startTime: `13:30`, endTime: `15:00`, type: `오프라인`, session: `1/4`, period: `2교시` },
@@ -598,7 +598,7 @@ const COURSES = [
     field: `Accounting/Finance`,
     professor: `송교직`,
     difficulty: `상`,
-    studentOpinion: `재무의 이해 심화 과목으로 추천.`,
+    studentOpinion: `난이도: 상. 재무의 이해 심화 과목으로 추천. \n성적은 시험 50%/프로젝트 50% 반영, - 족보 리뉴얼하여 기출 20% 미만 출제`,
     sessions: [
       { date: `2026-09-05`, startTime: `13:30`, endTime: `15:00`, type: `오프라인`, session: `1/5`, period: `2교시` },
       { date: `2026-09-09`, startTime: `21:00`, endTime: `22:00`, type: `화상`, session: `1/3` },
@@ -626,7 +626,7 @@ const COURSES = [
     field: `Marketing/Management`,
     professor: `김학균`,
     difficulty: `하`,
-    studentOpinion: `소비자들의 성향을 파악하고 마케팅 전략을 수립하기 위한 방법론ㄴ.`,
+    studentOpinion: `난이도: 하. 소비자들의 성향을 파악하고 마케팅 전략을 수립하기 위한 방법론\n수업 강도 Hard. 출석 체크겸 질문 많음\n수업내용 어렵지 않음\n시험 중간 없고, 기말, 팀 과제 있음 (팀당 4명)\n전체적인 평은 좋지 않음`,
     sessions: [
       { date: `2026-09-05`, startTime: `13:30`, endTime: `15:00`, type: `오프라인`, session: `1/5`, period: `2교시` },
       { date: `2026-09-19`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `2/5`, period: `3교시` },
@@ -654,7 +654,7 @@ const COURSES = [
     field: `Marketing/Management`,
     professor: `김안드레아`,
     difficulty: `중`,
-    studentOpinion: `중간 이전은 어렵지만 기말 부분까지는 내용 쉬움. 온라인 수업은 HR 이론학습. 오프라인 수업은 노무 트렌드 강의 위주.`,
+    studentOpinion: `난이도: 중. 중간 이전은 어렵지만 기말 부분까지는 내용 쉬움. 온라인 수업은 HR 이론학습. 오프라인 수업은 노무 트렌드 강의 위주.\n화상 Q&A와 오프라인 강의중 감점없이 두번 결석 가능, 수업중 질문 많이하면 성적에 반영\n인적자원관리론에서 과목명 변경된듯 , 중간, 기말 어떤 형태로 시험이 될지 모름\n과거 인사관리론은 시험시 오픈북 시험 형태(교재,부교재, 강의노트 가능)\n교수님 인성은 부드러우나 내용에 있어서는 날카로움\n오프수업 및 Q&A 수업은 모두 조별발표로 진행됨 (대충 하면 점수도 대충 나옴)\n시험은 인강내용이 주로 출제되는데 족보보다는 수업내용 복습이 유리\n자체적으로 조 구성하고 실제 경험한 사례를 발표하길 원하기 때문에 발표할 인사제도에서 근무했던 원우와 팀플하면 좋음`,
     sessions: [
       { date: `2026-08-31`, startTime: `19:00`, endTime: `20:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-05`, startTime: `13:30`, endTime: `15:00`, type: `오프라인`, session: `1/5`, period: `2교시` },
@@ -716,7 +716,7 @@ const COURSES = [
     field: null,
     professor: `김지영`,
     difficulty: `하`,
-    studentOpinion: `마케팅 트렌드 자료는 비교적 과거자료이며, 팀과제 중심 수업.`,
+    studentOpinion: `난이도: 하. 마케팅 트렌드 자료는 비교적 과거자료이며, 팀과제 중심 수업. \n마관은 1이나 2나 다 비슷하게 별로임\n오픈북이나 과제,시험 난이도 있음, 수업 난이도 높은편,교수님께서 열심히 가르치시고 내용 좋음`,
     sessions: [
       { date: `2026-09-05`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `1/5`, period: `1교시` },
       { date: `2026-09-12`, startTime: `15:10`, endTime: `16:40`, type: `오프라인`, session: `2/5`, period: `3교시` },
@@ -744,7 +744,7 @@ const COURSES = [
     field: `Marketing/Management`,
     professor: `문철우`,
     difficulty: `중`,
-    studentOpinion: `하버드 비즈니스 리뷰 토론 위주. 과제와 팀과제 난이도 있는 편.`,
+    studentOpinion: `난이도: 중. 하버드 비즈니스 리뷰 토론 위주. 과제와 팀과제 난이도 있는 편.\n별도 시험 없으며, 개인/팀 과제 대체, 수업때 질문 많음,\nHRB 사례 공부하고 토론하는 과목\n사례중심위주로  시험이 없다, 퇴근하고 조별과제 미팅을 해야한다\n튜터가 조정해준다 27불을 주고 HBR을 구독해야하는데 다 영어다 문제도 영어다 조장이 부담스러울거다\n막판에 조원간의 상대평가 하여튼 간에 난이도가 매우 높은거 같다`,
     sessions: [
       { date: `2026-09-03`, startTime: `19:00`, endTime: `20:00`, type: `화상`, session: `1/3` },
       { date: `2026-09-05`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `1/5`, period: `1교시` },
@@ -809,7 +809,7 @@ const COURSES = [
     field: `Global/Innovation`,
     professor: `변종복`,
     difficulty: `중`,
-    studentOpinion: `데이터 분석 기획, 처리, 시각화 등 분석 실습 R 프로그래밍 사용.`,
+    studentOpinion: `난이도: 중. 데이터 분석 기획, 처리, 시각화 등 분석 실습 R 프로그래밍 사용.\n대부분 수강자들이 추천하지 않음/ 점수는 잘 준다고함,교수님 성격 좋고 편해서 꿀과목은 맞는데 그만큼 남는게 없음,\n인강도 다 파이썬 관련 내용.\n졸업하기 전 쉬어가는 과목이라는 평(IT담당자)과, 공부할 거면 굳이 들을 필요 없다는 평도 있음`,
     sessions: [
       { date: `2026-09-05`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `1/5`, period: `1교시` },
       { date: `2026-09-09`, startTime: `19:00`, endTime: `20:00`, type: `화상`, session: `1/3` },
@@ -837,7 +837,7 @@ const COURSES = [
     field: `Accounting/Finance`,
     professor: `최영수`,
     difficulty: `상`,
-    studentOpinion: `재무제표 분석에 도움이 됨.`,
+    studentOpinion: `난이도: 상. 실제 재무제표 분석에 도움이 됨.\n중간, 기말고사 있음, 팀과제 : 기업 하나 정해서 재무제표 분석하데 발표는 안함\n성적은 시험 위주로 반영되는 듯 함\nMBA 다운 과목이나 비전공자가 듣기 어려움,평 좋음\n교수님 목소리가 매우 졸림.\n오픈북(종이자료, pfd 다 가능)이나 검색은 할 수 없음`,
     sessions: [
       { date: `2026-09-05`, startTime: `11:00`, endTime: `12:30`, type: `오프라인`, session: `1/5`, period: `1교시` },
       { date: `2026-09-19`, startTime: `13:30`, endTime: `15:00`, type: `오프라인`, session: `2/5`, period: `2교시` },
@@ -865,7 +865,7 @@ const COURSES = [
     field: `Global/Innovation`,
     professor: `김우진`,
     difficulty: `하`,
-    studentOpinion: `온라인 강의 없이 아침 1교시 오프라인 수업만 있음. 창업 실무 경험을 토대로 한 유익한 강의.`,
+    studentOpinion: `난이도: 하. 온라인 깅의 없이 아침 1교시 오프라인 수업만 있음. 창업 실무 경험을 토대로 한 유익한 강의.\n매주 수업있음, 내용이 매우 알차고 교수님 좋다고 하심, 점수도 잘 주는편`,
     sessions: [
       { date: `2026-09-05`, startTime: `09:00`, endTime: `10:50`, type: `오프라인`, session: `1/13`, period: `0교시` },
       { date: `2026-09-12`, startTime: `09:00`, endTime: `10:50`, type: `오프라인`, session: `2/13`, period: `0교시` },

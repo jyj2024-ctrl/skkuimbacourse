@@ -72,7 +72,7 @@
         </div>
         <h3 class="course-card-name">${course.name}</h3>
         <p class="course-card-professor">${course.professor} 교수</p>
-        <p class="course-card-opinion">${course.studentOpinion}</p>
+        <p class="course-card-opinion">${Logic.summarizeOpinion(course.studentOpinion)}</p>
         <label class="course-card-taken">
           <input type="checkbox" class="taken-checkbox" data-id="${course.id}" ${takenChecked} />
           이미 수강함
@@ -242,7 +242,7 @@
       <h2>${course.name}</h2>
       <p class="modal-professor">${course.professor} 교수</p>
       <h3>학생 의견</h3>
-      <p>${course.studentOpinion}</p>
+      <p class="modal-opinion">${course.studentOpinion}</p>
       <h3>강의계획서 요약</h3>
       ${syllabusHtml}
       <label class="modal-compare-toggle">

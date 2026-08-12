@@ -106,6 +106,20 @@ test('parseCurriculum returns an empty array for a null/undefined curriculum', (
   assert.deepEqual(Logic.parseCurriculum(undefined), []);
 });
 
+test('summarizeOpinion returns only the first line of a multi-line opinion', () => {
+  const opinion = '난이도: 중. 핵심 한줄평.\n추가로 덧붙인 상세 코멘트 1\n상세 코멘트 2';
+  assert.equal(Logic.summarizeOpinion(opinion), '난이도: 중. 핵심 한줄평.');
+});
+
+test('summarizeOpinion returns the whole text unchanged when there is no newline', () => {
+  assert.equal(Logic.summarizeOpinion('교수 변경'), '교수 변경');
+});
+
+test('summarizeOpinion returns an empty string for empty/null input', () => {
+  assert.equal(Logic.summarizeOpinion(''), '');
+  assert.equal(Logic.summarizeOpinion(null), '');
+});
+
 const scheduleSample = [
   {
     id: 'x1', name: '기업재무전략론',
