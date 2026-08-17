@@ -70,6 +70,18 @@ body {
   width: 28px; height: 28px; border-radius: 50%;
   background: var(--ink); color: var(--accent); font-weight: 800;
 }
+.header-actions { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.auth-area { display: flex; align-items: center; }
+.auth-profile {
+  display: flex; align-items: center; gap: 8px; background: var(--card-bg);
+  border: 1px solid var(--border-soft); border-radius: var(--radius-pill); padding: 4px 6px 4px 4px;
+}
+.auth-avatar { width: 26px; height: 26px; border-radius: 50%; object-fit: cover; }
+.auth-name { font-size: 0.82rem; font-weight: 600; max-width: 120px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.auth-logout-btn {
+  border: none; background: var(--ink); color: #fff; border-radius: var(--radius-pill);
+  padding: 4px 10px; font-family: inherit; font-size: 0.72rem; cursor: pointer;
+}
 .hero-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin: 0 0 12px; }
 .hero-title em { font-style: italic; font-weight: 400; }
 .hero-title strong { background: var(--accent); padding: 0 6px; border-radius: 6px; }
