@@ -140,7 +140,10 @@
     renderCompareBar();
     if (openCourseId) openModal(courseById(openCourseId));
     if (!compareSection.classList.contains('hidden')) renderCompareSection();
-    if (!scheduleSection.classList.contains('hidden')) renderScheduleSection();
+    if (!scheduleSection.classList.contains('hidden')) {
+      scheduleMonthIndex = 0;
+      renderScheduleSection();
+    }
   }
 
   function setSelectedIds(ids) {
@@ -149,7 +152,10 @@
     renderCompareBar();
     if (openCourseId) openModal(courseById(openCourseId));
     if (!compareSection.classList.contains('hidden')) renderCompareSection();
-    if (!scheduleSection.classList.contains('hidden')) renderScheduleSection();
+    if (!scheduleSection.classList.contains('hidden')) {
+      scheduleMonthIndex = 0;
+      renderScheduleSection();
+    }
   }
 
   courseListEl.addEventListener('change', (event) => {
@@ -317,9 +323,13 @@
   }
 
   const CALENDAR_WEEKDAY_HEADER = ['일', '월', '화', '수', '목', '금', '토'];
+  let scheduleMonthIndex = 0;
 
   function renderCalendarDay(day) {
     if (!day) return '<div class="calendar-day calendar-day-empty"></div>';
+    const dotsHtml = day.sessions
+      .map((s) => `<span class="calendar-dot ${TYPE_CLASS[s.type] || ''}" title="${s.startTime} ${s.courseName} (${s.type})"></span>`)
+      .join('');
     const sessionsHtml = day.sessions
       .map(
         (s) =>
@@ -329,18 +339,47 @@
     return `
       <div class="calendar-day">
         <span class="calendar-day-number">${day.day}</span>
-        ${sessionsHtml}
+        <div class="calendar-day-dots">${dotsHtml}</div>
+        <div class="calendar-day-sessions">${sessionsHtml}</div>
       </div>`;
   }
 
-  function renderCalendarMonth(month) {
+  function renderCalendarAgenda(month) {
+    const daysWithSessions = month.days.filter((d) => d && d.sessions.length > 0);
+    if (daysWithSessions.length === 0) {
+      return '<p class="calendar-agenda-empty">이 달에는 일정이 없습니다.</p>';
+    }
+    return `
+      <div class="calendar-agenda">
+        ${daysWithSessions
+          .map((day) => {
+            const weekday = day.sessions[0]?.dayOfWeek || '';
+            const itemsHtml = day.sessions
+              .map((s) => `<span class="calendar-agenda-item ${TYPE_CLASS[s.type] || ''}">${s.startTime} ${s.courseName}</span>`)
+              .join('');
+            return `
+              <div class="calendar-agenda-row">
+                <span class="calendar-agenda-date">${month.month}/${day.day} (${weekday})</span>
+                <div class="calendar-agenda-items">${itemsHtml}</div>
+              </div>`;
+          })
+          .join('')}
+      </div>`;
+  }
+
+  function renderCalendarMonth(month, isFirst, isLast) {
     return `
       <div class="calendar-month">
-        <h3 class="calendar-month-title">${month.label}</h3>
+        <div class="calendar-nav">
+          <button type="button" id="calendar-prev-btn" class="calendar-nav-btn" ${isFirst ? 'disabled' : ''} aria-label="이전 달">‹</button>
+          <h3 class="calendar-month-title">${month.label}</h3>
+          <button type="button" id="calendar-next-btn" class="calendar-nav-btn" ${isLast ? 'disabled' : ''} aria-label="다음 달">›</button>
+        </div>
         <div class="calendar-grid">
           ${CALENDAR_WEEKDAY_HEADER.map((w) => `<div class="calendar-weekday">${w}</div>`).join('')}
           ${month.days.map(renderCalendarDay).join('')}
         </div>
+        ${renderCalendarAgenda(month)}
       </div>`;
   }
 
@@ -352,6 +391,9 @@
       return;
     }
     const rows = Logic.buildScheduleRows(selected);
+    const months = Logic.buildCalendarMonths(rows);
+    if (scheduleMonthIndex < 0) scheduleMonthIndex = 0;
+    if (scheduleMonthIndex > months.length - 1) scheduleMonthIndex = Math.max(0, months.length - 1);
 
     const body = rows.length
       ? `
@@ -360,7 +402,7 @@
           <span class="calendar-legend-item"><span class="calendar-legend-dot type-video"></span>화상</span>
         </div>
         <div class="calendar-wrap">
-          ${Logic.buildCalendarMonths(rows).map(renderCalendarMonth).join('')}
+          ${renderCalendarMonth(months[scheduleMonthIndex], scheduleMonthIndex === 0, scheduleMonthIndex === months.length - 1)}
         </div>
         <button type="button" class="btn btn-primary schedule-excel-btn">엑셀 다운로드</button>`
       : `<p class="schedule-empty">아직 수업일정 데이터가 준비되지 않았습니다. 데이터가 입력되면 이 화면에 자동으로 표시됩니다.</p>`;
@@ -373,14 +415,26 @@
   }
 
   scheduleBtn.addEventListener('click', () => {
+    scheduleMonthIndex = 0;
     renderScheduleSection();
     scheduleSection.scrollIntoView({ behavior: 'smooth' });
   });
 
   scheduleSection.addEventListener('click', (event) => {
-    if (!event.target.closest('.schedule-excel-btn')) return;
-    const selected = [...state.selectedIds].map(courseById).filter(Boolean);
-    exportScheduleToExcel(Logic.buildScheduleRows(selected));
+    if (event.target.closest('.schedule-excel-btn')) {
+      const selected = [...state.selectedIds].map(courseById).filter(Boolean);
+      exportScheduleToExcel(Logic.buildScheduleRows(selected));
+      return;
+    }
+    if (event.target.closest('#calendar-prev-btn')) {
+      scheduleMonthIndex -= 1;
+      renderScheduleSection();
+      return;
+    }
+    if (event.target.closest('#calendar-next-btn')) {
+      scheduleMonthIndex += 1;
+      renderScheduleSection();
+    }
   });
 
   renderGroups();
