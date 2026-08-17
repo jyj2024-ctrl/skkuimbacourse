@@ -1,7 +1,6 @@
 (function () {
   const state = {
     query: '',
-    track: 'all',
     field: 'all',
     group: 'all',
     selectedIds: new Set(),
@@ -9,7 +8,6 @@
 
   const courseListEl = document.getElementById('course-list');
   const searchInput = document.getElementById('search-input');
-  const trackFilterEl = document.getElementById('track-filter');
   const fieldFilterEl = document.getElementById('field-filter');
   const groupFilterEl = document.getElementById('group-filter');
   const compareBar = document.getElementById('compare-bar');
@@ -34,6 +32,10 @@
     'Global/Innovation': 'field-global',
   };
 
+  function trackBadgeClass(track) {
+    return track === '전공기반' ? 'badge-track badge-track-basic' : 'badge-track';
+  }
+
   function courseById(id) {
     return COURSES.find((c) => c.id === id);
   }
@@ -50,7 +52,7 @@
       </label>
       <div class="course-card-body">
         <div class="course-card-badges">
-          <span class="badge badge-track">${course.track}</span>
+          <span class="badge ${trackBadgeClass(course.track)}">${course.track}</span>
           ${course.field ? `<span class="badge ${FIELD_CLASS[course.field]}">${course.field}</span>` : ''}
         </div>
         <div class="course-card-title-row">
@@ -97,10 +99,6 @@
     });
   }
 
-  wirePillFilter(trackFilterEl, (value) => {
-    state.track = value;
-    renderGroups();
-  });
   wirePillFilter(fieldFilterEl, (value) => {
     state.field = value;
     renderGroups();
@@ -221,7 +219,7 @@
     modalBody.innerHTML = `
       <div class="course-card-badges">
         <span class="badge group-badge group-${course.group}">그룹 ${course.group}</span>
-        <span class="badge badge-track">${course.track}</span>
+        <span class="badge ${trackBadgeClass(course.track)}">${course.track}</span>
         ${course.field ? `<span class="badge ${FIELD_CLASS[course.field]}">${course.field}</span>` : ''}
       </div>
       <h2>${course.name}</h2>

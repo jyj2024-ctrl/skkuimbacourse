@@ -160,6 +160,7 @@ body {
 }
 .badge-notice { background: var(--card-bg); border: 1px solid var(--border-soft); }
 .badge-track { background: var(--ink); color: #fff; }
+.badge-track-basic { background: #1b4332; color: #fff; }
 .group-badge { font-weight: 700; }
 .group-A { background: var(--group-a); }
 .group-B { background: var(--group-b); }
@@ -328,6 +329,14 @@ body {
 @media (max-width: 600px) {
   .course-grid { grid-template-columns: 1fr; }
   .compare-bar-inner { flex-direction: column; align-items: stretch; }
+
+  .filter-row { flex-direction: column; align-items: stretch; flex-wrap: nowrap; gap: 8px; }
+  .filter-group {
+    flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch;
+    padding-bottom: 2px; scrollbar-width: none;
+  }
+  .filter-group::-webkit-scrollbar { display: none; }
+  .filter-pill { flex-shrink: 0; white-space: nowrap; padding: 7px 12px; font-size: 0.76rem; }
 
   .calendar-month { min-width: 0; padding: 12px 6px; }
   .calendar-nav { gap: 8px; margin-bottom: 8px; }
