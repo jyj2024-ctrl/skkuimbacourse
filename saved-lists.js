@@ -84,8 +84,13 @@ savedListsPanel.addEventListener('click', async (event) => {
   if (deleteBtn) {
     const list = savedLists.find((l) => l.id === deleteBtn.dataset.id);
     if (list && confirm(`"${list.name}" 목록을 삭제할까요?`)) {
-      await deleteDoc(doc(db, 'users', currentUid, 'savedLists', list.id));
-      if (activeListId === list.id) activeListId = null;
+      try {
+        await deleteDoc(doc(db, 'users', currentUid, 'savedLists', list.id));
+        if (activeListId === list.id) activeListId = null;
+      } catch (err) {
+        console.error('목록 삭제 실패:', err);
+        alert(`삭제에 실패했습니다.\n\n오류: ${err.code || err.message || err}`);
+      }
     }
   }
 });
@@ -151,7 +156,7 @@ saveListNewBtn.addEventListener('click', async () => {
     closeSaveModal();
   } catch (err) {
     console.error('목록 저장 실패:', err);
-    alert('저장에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    alert(`저장에 실패했습니다.\n\n오류: ${err.code || err.message || err}`);
   }
 });
 
@@ -167,16 +172,23 @@ saveListUpdateBtn.addEventListener('click', async () => {
     closeSaveModal();
   } catch (err) {
     console.error('목록 업데이트 실패:', err);
-    alert('업데이트에 실패했습니다. 잠시 후 다시 시도해주세요.');
+    alert(`업데이트에 실패했습니다.\n\n오류: ${err.code || err.message || err}`);
   }
 });
 
 function subscribeToLists(uid) {
   const listsQuery = query(listsCollection(uid), orderBy('updatedAt', 'desc'));
-  unsubscribeLists = onSnapshot(listsQuery, (snapshot) => {
-    savedLists = snapshot.docs.map((docSnapshot) => ({ id: docSnapshot.id, ...docSnapshot.data() }));
-    renderPanel();
-  });
+  unsubscribeLists = onSnapshot(
+    listsQuery,
+    (snapshot) => {
+      savedLists = snapshot.docs.map((docSnapshot) => ({ id: docSnapshot.id, ...docSnapshot.data() }));
+      renderPanel();
+    },
+    (err) => {
+      console.error('저장 목록 불러오기 실패:', err);
+      savedListsPanel.innerHTML = `<p class="saved-lists-empty">목록을 불러오지 못했습니다.<br />(${err.code || err.message})</p>`;
+    }
+  );
 }
 
 onAuthStateChanged(auth, (user) => {
