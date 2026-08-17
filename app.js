@@ -110,6 +110,11 @@
 
   // --- Selection + compare bar ---
 
+  function updateCompareBarSpacing() {
+    const height = compareBar.classList.contains('hidden') ? 0 : compareBar.offsetHeight;
+    document.documentElement.style.setProperty('--compare-bar-height', `${height}px`);
+  }
+
   function renderCompareBar() {
     const selected = [...state.selectedIds].map(courseById).filter(Boolean);
     scheduleBtn.classList.toggle('hidden', selected.length !== 3);
@@ -118,18 +123,25 @@
       compareCountEl.textContent = '0개 과목 선택됨';
       compareChipsEl.innerHTML = '';
       compareWarningEl.textContent = '';
-      return;
+    } else {
+      compareBar.classList.remove('hidden');
+      compareCountEl.textContent = `${selected.length}개 과목 선택됨`;
+      compareChipsEl.innerHTML = selected
+        .map((c) => `<button type="button" class="chip" data-id="${c.id}">${c.name} ×</button>`)
+        .join('');
+      const conflicts = Logic.findGroupConflicts(selected);
+      compareWarningEl.textContent = conflicts
+        .map((c) => `⚠ 그룹 ${c.group} 과목 ${c.names.length}개 동시 선택됨`)
+        .join(' · ');
     }
-    compareBar.classList.remove('hidden');
-    compareCountEl.textContent = `${selected.length}개 과목 선택됨`;
-    compareChipsEl.innerHTML = selected
-      .map((c) => `<button type="button" class="chip" data-id="${c.id}">${c.name} ×</button>`)
-      .join('');
-    const conflicts = Logic.findGroupConflicts(selected);
-    compareWarningEl.textContent = conflicts
-      .map((c) => `⚠ 그룹 ${c.group} 과목 ${c.names.length}개 동시 선택됨`)
-      .join(' · ');
+    updateCompareBarSpacing();
   }
+
+  let compareBarResizeFrame = null;
+  window.addEventListener('resize', () => {
+    if (compareBarResizeFrame) cancelAnimationFrame(compareBarResizeFrame);
+    compareBarResizeFrame = requestAnimationFrame(updateCompareBarSpacing);
+  });
 
   function toggleSelection(id) {
     if (state.selectedIds.has(id)) state.selectedIds.delete(id);
