@@ -208,9 +208,19 @@
       </table>`;
   }
 
+  function renderCurriculumText(curriculum) {
+    const rows = Logic.parseCurriculum(curriculum);
+    if (rows.length === 0) return '정보 없음';
+    return rows.map((r) => (r.week ? `${r.week}: ${r.content}` : r.content)).join('\n');
+  }
+
   function renderCurriculumCell(course) {
     if (!course.syllabus) return '수업계획서 미제출';
-    return renderCurriculumTable(course.syllabus.curriculum);
+    const { curriculum } = course.syllabus;
+    return `
+      <div class="curriculum-cell-table">${renderCurriculumTable(curriculum)}</div>
+      <div class="curriculum-cell-text">${renderCurriculumText(curriculum)}</div>
+    `;
   }
 
   function openModal(course) {

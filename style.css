@@ -322,6 +322,7 @@ body {
 .curriculum-table tbody tr:last-child td { border-bottom: none; }
 .curriculum-table tbody tr:nth-child(even) { background: #fafaf3; }
 .modal-compare-toggle { display: flex; align-items: center; gap: 8px; margin-top: 24px; font-weight: 600; }
+.curriculum-cell-text { display: none; }
 
 /* Responsive */
 @media (max-width: 900px) {
@@ -353,4 +354,10 @@ body {
 
   .modal { padding: 20px; }
   .schedule-section, .compare-section { padding: 32px 16px calc(var(--compare-bar-height) + 24px); }
+
+  .compare-table { min-width: 0; width: 100%; }
+  .compare-table th, .compare-table td { padding: 8px 6px; font-size: 0.74rem; }
+  .compare-table thead th:first-child, .compare-table tbody th { width: 54px; font-size: 0.68rem; padding: 8px 4px; }
+  .curriculum-cell-table { display: none; }
+  .curriculum-cell-text { display: block; white-space: pre-line; }
 }
