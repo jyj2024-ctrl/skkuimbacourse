@@ -1,88 +1,50 @@
-(function () {
-  // Replace with your own OAuth Client ID from https://console.cloud.google.com/apis/credentials
-  // (Google Cloud Console > APIs & Services > Credentials > Create OAuth client ID > Web application,
-  // with this site's URL added under "Authorized JavaScript origins").
-  const GOOGLE_CLIENT_ID = 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com';
+import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
+import {
+  getAuth,
+  GoogleAuthProvider,
+  signInWithPopup,
+  signOut,
+  onAuthStateChanged,
+} from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
 
-  const AUTH_STORAGE_KEY = 'skku-imba-google-user';
-  const authArea = document.getElementById('auth-area');
+const firebaseConfig = {
+  apiKey: 'AIzaSyAX3oKHGLURHJdgK5LDyl6y-2oJqTNn5U8',
+  authDomain: 'test-3aa91.firebaseapp.com',
+  projectId: 'test-3aa91',
+  storageBucket: 'test-3aa91.firebasestorage.app',
+  messagingSenderId: '308762818540',
+  appId: '1:308762818540:web:a40fb6f5909ddd71c7b2c9',
+  measurementId: 'G-YWVWHCLXL6',
+};
 
-  function loadUser() {
-    try {
-      return JSON.parse(localStorage.getItem(AUTH_STORAGE_KEY));
-    } catch {
-      return null;
-    }
-  }
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-  function saveUser(user) {
-    if (user) localStorage.setItem(AUTH_STORAGE_KEY, JSON.stringify(user));
-    else localStorage.removeItem(AUTH_STORAGE_KEY);
-  }
+const authArea = document.getElementById('auth-area');
 
-  function decodeJwtPayload(token) {
-    const base64 = token.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
-    const json = decodeURIComponent(
-      atob(base64)
-        .split('')
-        .map((c) => '%' + c.charCodeAt(0).toString(16).padStart(2, '0'))
-        .join('')
-    );
-    return JSON.parse(json);
-  }
+function renderSignedIn(user) {
+  const name = user.displayName || user.email || '사용자';
+  authArea.innerHTML = `
+    <div class="auth-profile">
+      <img class="auth-avatar" src="${user.photoURL || ''}" alt="${name}" referrerpolicy="no-referrer" />
+      <span class="auth-name">${name}</span>
+      <button type="button" id="auth-logout-btn" class="auth-logout-btn">로그아웃</button>
+    </div>
+  `;
+  document.getElementById('auth-logout-btn').addEventListener('click', () => {
+    signOut(auth).catch((err) => console.error('로그아웃 실패:', err));
+  });
+}
 
-  function renderSignedIn(user) {
-    authArea.innerHTML = `
-      <div class="auth-profile">
-        <img class="auth-avatar" src="${user.picture}" alt="${user.name}" referrerpolicy="no-referrer" />
-        <span class="auth-name">${user.name}</span>
-        <button type="button" id="auth-logout-btn" class="auth-logout-btn">로그아웃</button>
-      </div>
-    `;
-    document.getElementById('auth-logout-btn').addEventListener('click', signOut);
-  }
+function renderSignedOut() {
+  authArea.innerHTML = '<button type="button" id="auth-google-btn" class="auth-google-btn">Google로 로그인</button>';
+  document.getElementById('auth-google-btn').addEventListener('click', () => {
+    signInWithPopup(auth, provider).catch((err) => console.error('Google 로그인 실패:', err));
+  });
+}
 
-  function renderSignedOut() {
-    authArea.innerHTML = '<div id="google-signin-button"></div>';
-    if (window.google?.accounts?.id) {
-      window.google.accounts.id.renderButton(document.getElementById('google-signin-button'), {
-        theme: 'outline',
-        size: 'medium',
-        text: 'signin',
-        shape: 'pill',
-      });
-    }
-  }
-
-  function handleCredentialResponse(response) {
-    const payload = decodeJwtPayload(response.credential);
-    const user = { name: payload.name, email: payload.email, picture: payload.picture };
-    saveUser(user);
-    renderSignedIn(user);
-  }
-
-  function signOut() {
-    saveUser(null);
-    window.google?.accounts?.id?.disableAutoSelect();
-    renderSignedOut();
-  }
-
-  function init() {
-    const existingUser = loadUser();
-    if (existingUser) {
-      renderSignedIn(existingUser);
-      return;
-    }
-    if (!window.google?.accounts?.id) {
-      setTimeout(init, 200);
-      return;
-    }
-    window.google.accounts.id.initialize({
-      client_id: GOOGLE_CLIENT_ID,
-      callback: handleCredentialResponse,
-    });
-    renderSignedOut();
-  }
-
-  init();
-})();
+onAuthStateChanged(auth, (user) => {
+  if (user) renderSignedIn(user);
+  else renderSignedOut();
+});
