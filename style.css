@@ -211,10 +211,11 @@ body {
   border-radius: var(--radius-pill); padding: 6px 12px; font-size: 0.78rem; cursor: pointer;
 }
 .compare-warning { color: var(--warning-bg); font-size: 0.8rem; }
-.compare-bar-actions { display: flex; gap: 8px; }
+.compare-bar-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .btn {
   border: none; border-radius: var(--radius-pill); padding: 10px 20px;
   font-family: inherit; font-weight: 700; cursor: pointer; font-size: 0.85rem;
+  white-space: nowrap; flex-shrink: 0;
 }
 .btn-primary { background: var(--accent); color: var(--accent-ink); }
 .btn-ghost { background: transparent; color: #fff; border: 1px solid rgba(255, 255, 255, 0.4); }
