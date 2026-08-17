@@ -18,6 +18,7 @@
     query: '',
     track: 'all',
     field: 'all',
+    group: 'all',
     selectedIds: new Set(),
     takenIds: loadTakenIds(),
   };
@@ -26,6 +27,7 @@
   const searchInput = document.getElementById('search-input');
   const trackFilterEl = document.getElementById('track-filter');
   const fieldFilterEl = document.getElementById('field-filter');
+  const groupFilterEl = document.getElementById('group-filter');
   const compareBar = document.getElementById('compare-bar');
   const compareCountEl = compareBar.querySelector('.compare-count');
   const compareChipsEl = compareBar.querySelector('.compare-chips');
@@ -122,6 +124,10 @@
   });
   wirePillFilter(fieldFilterEl, (value) => {
     state.field = value;
+    renderGroups();
+  });
+  wirePillFilter(groupFilterEl, (value) => {
+    state.group = value;
     renderGroups();
   });
 

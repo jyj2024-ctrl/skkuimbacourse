@@ -36,6 +36,17 @@ test('filterCourses applies the field filter, excluding courses with no field', 
   assert.deepEqual(Logic.filterCourses(sample, { field: 'Accounting/Finance' }), []);
 });
 
+test('filterCourses applies the group filter', () => {
+  const result = Logic.filterCourses(sample, { group: 'B' });
+  assert.deepEqual(result.map((c) => c.id), ['b1']);
+  assert.deepEqual(Logic.filterCourses(sample, { group: 'A' }).map((c) => c.id), ['a1', 'a2']);
+});
+
+test('filterCourses combines group with track/field/query as AND conditions', () => {
+  const result = Logic.filterCourses(sample, { group: 'A', track: '전공심화' });
+  assert.deepEqual(result.map((c) => c.id), ['a2']);
+});
+
 test('groupCourses buckets courses under every known group letter, in GROUP_ORDER', () => {
   const grouped = Logic.groupCourses(sample);
   assert.deepEqual(Object.keys(grouped), Logic.GROUP_ORDER);

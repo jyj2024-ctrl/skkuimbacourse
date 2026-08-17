@@ -19,11 +19,12 @@ const COMPARE_ROWS = [
 ];
 
 function filterCourses(courses, options) {
-  const { query = '', track = 'all', field = 'all' } = options || {};
+  const { query = '', track = 'all', field = 'all', group = 'all' } = options || {};
   const q = query.trim().toLowerCase();
   return courses.filter((course) => {
     if (track !== 'all' && course.track !== track) return false;
     if (field !== 'all' && course.field !== field) return false;
+    if (group !== 'all' && course.group !== group) return false;
     if (q) {
       const haystack = `${course.name} ${course.professor}`.toLowerCase();
       if (!haystack.includes(q)) return false;
