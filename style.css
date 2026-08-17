@@ -28,10 +28,6 @@
   --field-global-bg: #ffe0c2;
   --field-global-ink: #8a4a00;
 
-  --taken-card-bg: #e6e6dd;
-  --taken-bg: #d3d3c4;
-  --taken-ink: #4a4a3a;
-
   --type-offline-bg: #d9f0e0;
   --type-offline-ink: #1f5c40;
   --type-video-bg: #d6e8f5;
@@ -174,7 +170,6 @@ body {
 .field-marketing { background: var(--field-marketing-bg); color: var(--field-marketing-ink); }
 .field-accounting { background: var(--field-accounting-bg); color: var(--field-accounting-ink); }
 .field-global { background: var(--field-global-bg); color: var(--field-global-ink); }
-.badge-taken { background: var(--taken-bg); color: var(--taken-ink); }
 .type-offline { background: var(--type-offline-bg); color: var(--type-offline-ink); }
 .type-video { background: var(--type-video-bg); color: var(--type-video-ink); }
 
@@ -184,27 +179,22 @@ body {
 }
 .course-card {
   position: relative; background: var(--card-bg); border-radius: var(--radius-lg);
-  box-shadow: var(--shadow-card); padding: 18px; cursor: pointer;
+  box-shadow: var(--shadow-card); padding: 14px; cursor: pointer;
   transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 .course-card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(22, 22, 15, 0.14); }
-.course-card.is-taken { background: var(--taken-card-bg); }
 .course-card-checkbox {
-  position: absolute; top: 14px; right: 14px; cursor: pointer;
+  position: absolute; top: 12px; right: 12px; cursor: pointer;
 }
 .course-card-checkbox input { width: 18px; height: 18px; cursor: pointer; }
-.course-card-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 10px; padding-right: 28px; }
-.course-card-name { font-size: 1.05rem; margin: 0 0 4px; font-weight: 700; }
-.course-card-professor { margin: 0 0 8px; color: var(--ink-muted); font-size: 0.85rem; }
+.course-card-badges { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; padding-right: 28px; }
+.course-card-title-row { display: flex; align-items: baseline; gap: 6px; flex-wrap: wrap; margin: 0 0 6px; }
+.course-card-name { font-size: 1.02rem; margin: 0; font-weight: 700; }
+.course-card-professor { margin: 0; color: var(--ink-muted); font-size: 0.78rem; white-space: nowrap; }
 .course-card-opinion {
   margin: 0; font-size: 0.85rem; color: var(--ink);
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.course-card-taken {
-  display: flex; align-items: center; gap: 6px; margin-top: 10px;
-  font-size: 0.78rem; color: var(--ink-muted); cursor: pointer;
-}
-.course-card-taken input { width: 14px; height: 14px; cursor: pointer; }
 
 /* Compare bar */
 .compare-bar {
