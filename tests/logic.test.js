@@ -170,3 +170,46 @@ test('buildScheduleRows returns an empty array when no selected course has sessi
   assert.deepEqual(Logic.buildScheduleRows([scheduleSample[2]]), []);
   assert.deepEqual(Logic.buildScheduleRows([]), []);
 });
+
+test('buildCalendarMonths groups rows into one entry per year-month, sorted chronologically', () => {
+  const rows = Logic.buildScheduleRows(scheduleSample); // spans 2026-09 and 2026-10
+  const months = Logic.buildCalendarMonths(rows);
+  assert.deepEqual(
+    months.map((m) => [m.year, m.month, m.label]),
+    [
+      [2026, 9, '2026년 9월'],
+      [2026, 10, '2026년 10월'],
+    ]
+  );
+});
+
+test('buildCalendarMonths pads leading blanks to align the 1st with its weekday, and pads trailing blanks to a full week', () => {
+  const months = Logic.buildCalendarMonths(Logic.buildScheduleRows(scheduleSample));
+  const september = months.find((m) => m.month === 9); // 2026-09-01 is a Tuesday (weekday 2)
+  assert.equal(september.days.length % 7, 0);
+  assert.deepEqual(september.days.slice(0, 2), [null, null]);
+  assert.equal(september.days[2].date, '2026-09-01');
+  assert.equal(september.days[2].day, 1);
+  const lastRealDay = september.days.filter(Boolean).at(-1);
+  assert.equal(lastRealDay.date, '2026-09-30');
+});
+
+test('buildCalendarMonths attaches each date\'s sessions, sorted by start time', () => {
+  const rows = [
+    { date: '2026-09-05', startTime: '13:00', endTime: '14:00', courseName: 'B과목', type: '오프라인' },
+    { date: '2026-09-05', startTime: '09:00', endTime: '10:00', courseName: 'A과목', type: '오프라인' },
+  ];
+  const months = Logic.buildCalendarMonths(rows);
+  const day = months[0].days.find((d) => d && d.date === '2026-09-05');
+  assert.deepEqual(
+    day.sessions.map((s) => s.courseName),
+    ['A과목', 'B과목']
+  );
+});
+
+test('buildCalendarMonths gives days with no class an empty sessions array', () => {
+  const rows = [{ date: '2026-09-05', startTime: '09:00', endTime: '10:00', courseName: 'A과목', type: '오프라인' }];
+  const months = Logic.buildCalendarMonths(rows);
+  const emptyDay = months[0].days.find((d) => d && d.date === '2026-09-01');
+  assert.deepEqual(emptyDay.sessions, []);
+});

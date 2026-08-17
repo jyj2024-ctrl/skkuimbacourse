@@ -100,6 +100,37 @@ function buildScheduleRows(selectedCourses) {
   });
 }
 
+function buildCalendarMonths(scheduleRows) {
+  const byMonth = {};
+  for (const row of scheduleRows) {
+    const ym = row.date.slice(0, 7);
+    if (!byMonth[ym]) byMonth[ym] = {};
+    if (!byMonth[ym][row.date]) byMonth[ym][row.date] = [];
+    byMonth[ym][row.date].push(row);
+  }
+
+  return Object.keys(byMonth)
+    .sort()
+    .map((ym) => {
+      const [year, month] = ym.split('-').map(Number);
+      const daysInMonth = new Date(year, month, 0).getDate();
+      const startWeekday = new Date(year, month - 1, 1).getDay();
+
+      const days = [];
+      for (let i = 0; i < startWeekday; i++) days.push(null);
+      for (let d = 1; d <= daysInMonth; d++) {
+        const dateStr = `${ym}-${String(d).padStart(2, '0')}`;
+        const sessions = (byMonth[ym][dateStr] || [])
+          .slice()
+          .sort((a, b) => (a.startTime < b.startTime ? -1 : a.startTime > b.startTime ? 1 : 0));
+        days.push({ date: dateStr, day: d, sessions });
+      }
+      while (days.length % 7 !== 0) days.push(null);
+
+      return { year, month, label: `${year}년 ${month}월`, days };
+    });
+}
+
 function summarizeOpinion(studentOpinion) {
   if (!studentOpinion) return '';
   const firstLine = studentOpinion.split('\n')[0].trim();
@@ -128,6 +159,7 @@ const Logic = {
   buildCompareRows,
   parseCurriculum,
   buildScheduleRows,
+  buildCalendarMonths,
   summarizeOpinion,
 };
 

@@ -346,6 +346,34 @@
     XLSX.writeFile(workbook, '수업일정표.xlsx');
   }
 
+  const CALENDAR_WEEKDAY_HEADER = ['일', '월', '화', '수', '목', '금', '토'];
+
+  function renderCalendarDay(day) {
+    if (!day) return '<div class="calendar-day calendar-day-empty"></div>';
+    const sessionsHtml = day.sessions
+      .map(
+        (s) =>
+          `<div class="calendar-session ${TYPE_CLASS[s.type] || ''}" title="${s.courseName} ${s.startTime}~${s.endTime} (${s.type})">${s.startTime} ${s.courseName}</div>`
+      )
+      .join('');
+    return `
+      <div class="calendar-day">
+        <span class="calendar-day-number">${day.day}</span>
+        ${sessionsHtml}
+      </div>`;
+  }
+
+  function renderCalendarMonth(month) {
+    return `
+      <div class="calendar-month">
+        <h3 class="calendar-month-title">${month.label}</h3>
+        <div class="calendar-grid">
+          ${CALENDAR_WEEKDAY_HEADER.map((w) => `<div class="calendar-weekday">${w}</div>`).join('')}
+          ${month.days.map(renderCalendarDay).join('')}
+        </div>
+      </div>`;
+  }
+
   function renderScheduleSection() {
     const selected = [...state.selectedIds].map(courseById).filter(Boolean);
     if (selected.length !== 3) {
@@ -357,18 +385,12 @@
 
     const body = rows.length
       ? `
-        <div class="schedule-table-wrap">
-          <table class="schedule-table">
-            <thead><tr><th>날짜</th><th>요일</th><th>시간</th><th>구분</th><th>과목명</th></tr></thead>
-            <tbody>
-              ${rows
-                .map(
-                  (r) =>
-                    `<tr><td>${r.date}</td><td>${r.dayOfWeek}</td><td>${r.startTime}~${r.endTime}</td><td><span class="badge ${TYPE_CLASS[r.type] || ''}">${r.type}</span></td><td>${r.courseName}</td></tr>`
-                )
-                .join('')}
-            </tbody>
-          </table>
+        <div class="calendar-legend">
+          <span class="calendar-legend-item"><span class="calendar-legend-dot type-offline"></span>오프라인</span>
+          <span class="calendar-legend-item"><span class="calendar-legend-dot type-video"></span>화상</span>
+        </div>
+        <div class="calendar-wrap">
+          ${Logic.buildCalendarMonths(rows).map(renderCalendarMonth).join('')}
         </div>
         <button type="button" class="btn btn-primary schedule-excel-btn">엑셀 다운로드</button>`
       : `<p class="schedule-empty">아직 수업일정 데이터가 준비되지 않았습니다. 데이터가 입력되면 이 화면에 자동으로 표시됩니다.</p>`;
