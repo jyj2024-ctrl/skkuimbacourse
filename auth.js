@@ -1,26 +1,12 @@
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-app.js';
 import {
-  getAuth,
   GoogleAuthProvider,
   signInWithPopup,
   signOut,
   onAuthStateChanged,
 } from 'https://www.gstatic.com/firebasejs/10.14.1/firebase-auth.js';
+import { auth } from './firebase-init.js';
 
-const firebaseConfig = {
-  apiKey: 'AIzaSyAX3oKHGLURHJdgK5LDyl6y-2oJqTNn5U8',
-  authDomain: 'test-3aa91.firebaseapp.com',
-  projectId: 'test-3aa91',
-  storageBucket: 'test-3aa91.firebasestorage.app',
-  messagingSenderId: '308762818540',
-  appId: '1:308762818540:web:a40fb6f5909ddd71c7b2c9',
-  measurementId: 'G-YWVWHCLXL6',
-};
-
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
 const provider = new GoogleAuthProvider();
-
 const authArea = document.getElementById('auth-area');
 
 function renderSignedIn(user) {

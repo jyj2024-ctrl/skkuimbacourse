@@ -13,6 +13,10 @@
       <div class="logo"><span class="logo-mark">S</span> SKKU IMBA 과목비교</div>
       <div class="header-actions">
         <span class="badge badge-notice">⚠ 같은 그룹 과목은 동시 수강이 불가합니다</span>
+        <div id="saved-lists-area" class="saved-lists-area hidden">
+          <button type="button" id="saved-lists-toggle" class="saved-lists-toggle">저장 목록</button>
+          <div id="saved-lists-panel" class="saved-lists-panel hidden"></div>
+        </div>
         <div id="auth-area" class="auth-area"></div>
       </div>
     </div>
@@ -59,6 +63,7 @@
       <span class="compare-warning"></span>
       <div class="compare-bar-actions">
         <button type="button" id="reset-btn" class="btn btn-ghost">초기화</button>
+        <button type="button" id="save-list-btn" class="btn btn-ghost">목록으로 저장</button>
         <button type="button" id="schedule-btn" class="btn btn-primary hidden">수업일정표 보기</button>
         <button type="button" id="compare-btn" class="btn btn-primary">비교하기</button>
       </div>
@@ -72,10 +77,24 @@
     </div>
   </div>
 
+  <div id="save-list-modal-overlay" class="modal-overlay hidden">
+    <div class="modal save-list-modal" role="dialog" aria-modal="true">
+      <button type="button" id="save-list-modal-close" class="modal-close" aria-label="닫기">×</button>
+      <h3 class="save-list-modal-title">목록 저장</h3>
+      <p id="save-list-modal-hint" class="save-list-modal-hint"></p>
+      <input type="text" id="save-list-name-input" class="save-list-name-input" placeholder="목록 이름 (예: 1안, 2안)" maxlength="40" />
+      <div class="save-list-modal-actions">
+        <button type="button" id="save-list-update-btn" class="btn btn-primary hidden">이 목록 업데이트</button>
+        <button type="button" id="save-list-new-btn" class="btn btn-primary">새 목록으로 저장</button>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <script src="data.js"></script>
   <script src="logic.js"></script>
   <script src="app.js"></script>
   <script type="module" src="auth.js"></script>
+  <script type="module" src="saved-lists.js"></script>
 </body>
 </html>

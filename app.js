@@ -164,6 +164,15 @@
     if (!scheduleSection.classList.contains('hidden')) renderScheduleSection();
   }
 
+  function setSelectedIds(ids) {
+    state.selectedIds = new Set(ids.filter((id) => courseById(id)));
+    renderGroups();
+    renderCompareBar();
+    if (openCourseId) openModal(courseById(openCourseId));
+    if (!compareSection.classList.contains('hidden')) renderCompareSection();
+    if (!scheduleSection.classList.contains('hidden')) renderScheduleSection();
+  }
+
   function toggleTaken(id) {
     if (state.takenIds.has(id)) state.takenIds.delete(id);
     else state.takenIds.add(id);
@@ -421,4 +430,13 @@
 
   renderGroups();
   renderCompareBar();
+
+  // Bridge for other modules (e.g. saved-lists.js) that can't reach this IIFE's scope directly.
+  // app.js is a classic script that runs synchronously before the deferred module scripts,
+  // so window.CourseApp is guaranteed to exist by the time they run.
+  window.CourseApp = {
+    getSelectedIds: () => [...state.selectedIds],
+    setSelectedIds,
+    getCourseNames: (ids) => ids.map((id) => courseById(id)?.name).filter(Boolean),
+  };
 })();

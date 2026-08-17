@@ -87,6 +87,46 @@ body {
   border-radius: var(--radius-pill); padding: 8px 16px; font-family: inherit;
   font-size: 0.82rem; font-weight: 600; cursor: pointer;
 }
+
+.saved-lists-area { position: relative; }
+.saved-lists-toggle {
+  border: 1px solid var(--border-soft); background: var(--card-bg); color: var(--ink);
+  border-radius: var(--radius-pill); padding: 8px 16px; font-family: inherit;
+  font-size: 0.82rem; font-weight: 600; cursor: pointer;
+}
+.saved-lists-toggle:hover { background: #f4f5ec; }
+.saved-lists-panel {
+  position: absolute; top: calc(100% + 8px); right: 0; z-index: 30;
+  width: 280px; max-height: 320px; overflow-y: auto;
+  background: var(--card-bg); border-radius: var(--radius-md); box-shadow: var(--shadow-card);
+  padding: 8px;
+}
+.saved-lists-empty { margin: 0; padding: 12px 8px; color: var(--ink-muted); font-size: 0.82rem; text-align: center; }
+.saved-list-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  padding: 8px; border-radius: 8px;
+}
+.saved-list-row.is-active { background: #f4f5ec; }
+.saved-list-row + .saved-list-row { border-top: 1px solid var(--border-soft); }
+.saved-list-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.saved-list-name { font-size: 0.85rem; font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.saved-list-count { font-size: 0.72rem; color: var(--ink-muted); }
+.saved-list-actions { display: flex; gap: 4px; flex-shrink: 0; }
+.saved-list-load-btn, .saved-list-delete-btn {
+  border: none; border-radius: var(--radius-pill); padding: 5px 10px;
+  font-family: inherit; font-size: 0.72rem; cursor: pointer;
+}
+.saved-list-load-btn { background: var(--ink); color: #fff; }
+.saved-list-delete-btn { background: var(--warning-bg); color: var(--warning-ink); }
+
+.save-list-modal { max-width: 420px; }
+.save-list-modal-title { margin: 0 0 8px; font-size: 1.15rem; }
+.save-list-modal-hint { margin: 0 0 12px; color: var(--ink-muted); font-size: 0.82rem; }
+.save-list-name-input {
+  width: 100%; padding: 10px 14px; border-radius: var(--radius-pill);
+  border: 1px solid var(--border-soft); font-family: inherit; font-size: 0.9rem; margin-bottom: 16px;
+}
+.save-list-modal-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 .auth-google-btn:hover { background: #f4f5ec; }
 .hero-title { font-size: clamp(1.8rem, 4vw, 2.6rem); font-weight: 700; margin: 0 0 12px; }
 .hero-title em { font-style: italic; font-weight: 400; }
